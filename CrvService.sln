@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrvService", "CrvService\CrvService.csproj", "{88066FF5-8723-47E2-9A79-20936D6DAF1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88066FF5-8723-47E2-9A79-20936D6DAF1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88066FF5-8723-47E2-9A79-20936D6DAF1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88066FF5-8723-47E2-9A79-20936D6DAF1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88066FF5-8723-47E2-9A79-20936D6DAF1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {288163E6-712C-4BDC-9EC7-46B701797E2D}
+	EndGlobalSection
+EndGlobal
