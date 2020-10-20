@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrvService", "CrvService\CrvService.csproj", "{88066FF5-8723-47E2-9A79-20936D6DAF1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrvService", "CrvService\CrvService.csproj", "{88066FF5-8723-47E2-9A79-20936D6DAF1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrvService.Logging", "CrvService.Logging\CrvService.Logging.csproj", "{D994E483-0CF1-462D-8F5E-A40EC0C18F76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrvService.Configuration", "CrvService.Configuration\CrvService.Configuration.csproj", "{1815B7D6-8329-49E9-A610-F13E6FDEAFD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{88066FF5-8723-47E2-9A79-20936D6DAF1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88066FF5-8723-47E2-9A79-20936D6DAF1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88066FF5-8723-47E2-9A79-20936D6DAF1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D994E483-0CF1-462D-8F5E-A40EC0C18F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D994E483-0CF1-462D-8F5E-A40EC0C18F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D994E483-0CF1-462D-8F5E-A40EC0C18F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D994E483-0CF1-462D-8F5E-A40EC0C18F76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1815B7D6-8329-49E9-A610-F13E6FDEAFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1815B7D6-8329-49E9-A610-F13E6FDEAFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1815B7D6-8329-49E9-A610-F13E6FDEAFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1815B7D6-8329-49E9-A610-F13E6FDEAFD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
