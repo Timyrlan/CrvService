@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrvService.Configuration\CrvService.Configuration.csproj" />
+    <ProjectReference Include="..\CrvService.Contracts\CrvService.Shared.csproj" />
     <ProjectReference Include="..\CrvService.Logging\CrvService.Logging.csproj" />
   </ItemGroup>
 </Project>
