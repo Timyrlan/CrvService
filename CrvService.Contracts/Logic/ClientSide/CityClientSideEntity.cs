@@ -12,6 +12,7 @@ namespace CrvService.Shared.Logic.ClientSide
         public float X { get; set; }
         public float Y { get; set; }
         public string Name { get; set; }
+        public bool Visible { get; set; }
         public ICollectionWrapper<IBuilding> Buildings { get; } = new ClientSideCollectionWrapper<IBuilding, BuildingClientSideEntity>();
     }
 }

@@ -10,6 +10,8 @@ namespace CrvService.Shared.Contracts.Dto
         public float Y { get; set; }
         public string Name { get; set; }
 
+        public bool Visible { get; set; }
+
         public BuildingDto[] Buildings { get; set; } = { };
     }
 }

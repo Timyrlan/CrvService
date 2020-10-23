@@ -13,7 +13,29 @@ namespace CrvService.Shared.ConsoleTest
     {
         private static void Main(string[] args)
         {
-            Test2();
+            Test3();
+        }
+
+        private static void Test3()
+        {
+            var newInstanceFactory = new NewInstanceFactoryClientSide();
+            var processorsProvider = new ProcessorsProvider(newInstanceFactory);
+            var newWorldGenerator = new NewWorldGenerator(newInstanceFactory);
+            ICaravanServer caravanServer = new CaravanServerClientSide(processorsProvider, newInstanceFactory, newWorldGenerator);
+
+
+            var response = caravanServer.ProcessWorld(string.Empty, string.Empty);
+            var responseWorld = ToClientSideMapper.Map(response.World);
+            var responsePlayer = ToClientSideMapper.Map(response.Player);
+            var city = responseWorld.Cities.Collection.First();
+            
+            CheckEquals(1, city.Buildings.Collection.First(c => c.Type == "LivingHouse").Cargos.Collection.Single(c => c.Type == "FreshWater").Count);
+
+            response = caravanServer.ProcessWorld(responseWorld.Guid, responsePlayer.Guid);
+            responseWorld = ToClientSideMapper.Map(response.World);
+            responsePlayer = ToClientSideMapper.Map(response.Player);
+            city = responseWorld.Cities.Collection.First();
+            CheckEquals(1 - 0.01m, city.Buildings.Collection.First(c => c.Type == "LivingHouse").Cargos.Collection.Single(c => c.Type == "FreshWater").Count);
         }
 
 
@@ -21,16 +43,18 @@ namespace CrvService.Shared.ConsoleTest
         {
             var newInstanceFactory = new NewInstanceFactoryClientSide();
             var processorsProvider = new ProcessorsProvider(newInstanceFactory);
-            ICaravanServer caravanServer = new CaravanServerClientSide(processorsProvider, newInstanceFactory);
+            var newWorldGenerator = new NewWorldGenerator(newInstanceFactory);
+            ICaravanServer caravanServer = new CaravanServerClientSide(processorsProvider, newInstanceFactory, newWorldGenerator);
 
             var world = GetWorld();
             caravanServer.LoadWorld(world);
             var response = caravanServer.ProcessWorld(world.Guid, string.Empty);
 
             var responseWorld = ToClientSideMapper.Map(response.World);
+            var responsePlayer = ToClientSideMapper.Map(response.Player);
 
             var city = responseWorld.Cities.Collection.First();
-            
+
             CheckEquals("SomeCity", city.Name);
             CheckEquals(1 - 0.01m, city.Buildings.Collection.First(c => c.Type == "LivingHouse").Cargos.Collection.Single(c => c.Type == "FreshWater").Count);
         }

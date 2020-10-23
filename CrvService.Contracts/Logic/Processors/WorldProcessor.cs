@@ -15,6 +15,9 @@ namespace CrvService.Shared.Logic.Processors
             var casted = Cast<IWorld>(c);
             base.Process(casted);
 
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+            casted.WorldDate = casted.WorldDate.AddSeconds(1);
+
             foreach (var city in casted.Cities.Collection) ProcessorsProvider.Process(city);
         }
     }

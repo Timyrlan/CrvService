@@ -13,17 +13,28 @@ namespace CrvService.Shared.Logic
 {
     public static class ToDtoMapper
     {
-        public static WorldDto Map(IWorld c)
+        public static PlayerDto Map(IPlayer c)
         {
-            var result = new WorldDto {Type = c.Type, Guid = c.Guid};
+            var result = new PlayerDto {Type = c.Type, Guid = c.Guid};
 
-            result.WorldDate = c.WorldDate;
-            result.Cities = c.Cities.Collection.Select(Map).ToArray();
+            result.VisibleCities = c.VisibleCities;
+            result.X = c.X;
+            result.Y = c.Y;
 
             return result;
         }
 
-        private static CityDto Map(ICity c)
+        public static WorldDto Map(IWorld c, string[] visibleCities)
+        {
+            var result = new WorldDto {Type = c.Type, Guid = c.Guid};
+
+            result.WorldDate = c.WorldDate;
+            result.Cities = c.Cities.Collection.Select(cc => Map(cc, visibleCities)).ToArray();
+
+            return result;
+        }
+
+        private static CityDto Map(ICity c, string[] visibleCities)
         {
             var result = new CityDto {Type = c.Type, Guid = c.Guid};
 
@@ -31,6 +42,7 @@ namespace CrvService.Shared.Logic
             result.X = c.X;
             result.Y = c.Y;
             result.Name = c.Name;
+            result.Visible = visibleCities.Contains(c.Guid);
             result.Buildings = c.Buildings.Collection.Select(Map).ToArray();
 
             return result;

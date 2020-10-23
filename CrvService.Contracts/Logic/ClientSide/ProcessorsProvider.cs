@@ -47,7 +47,7 @@ namespace CrvService.Shared.Logic.ClientSide
 
         private void AddProcessor<TInterface>(IProcessor processor) where TInterface : IEntityBase
         {
-            Processors.Add(NameHelper.GetNamefromInterface<TInterface>(), processor);
+            Processors.Add(Name.Get<TInterface>(), processor);
         }
 
         private T Cast<T>(object c) where T : class

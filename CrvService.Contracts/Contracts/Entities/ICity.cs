@@ -10,6 +10,8 @@ namespace CrvService.Shared.Contracts.Entities
         float Y { get; set; }
         string Name { get; set; }
 
+        bool Visible { get; set; }
+
         ICollectionWrapper<IBuilding> Buildings { get; }
     }
 }

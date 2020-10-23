@@ -14,6 +14,17 @@ namespace CrvService.Shared.Logic.ClientSide.Server
 {
     public static class ToClientSideMapper
     {
+        public static IPlayer Map(PlayerDto c)
+        {
+            var result = new PlayerClientSideEntity {Type = c.Type, Guid = c.Guid};
+
+            result.VisibleCities = c.VisibleCities;
+            result.X = c.X;
+            result.Y = c.Y;
+
+            return result;
+        }
+
         public static IWorld Map(WorldDto c)
         {
             var result = new WorldClientSideEntity {Type = c.Type, Guid = c.Guid};
@@ -34,6 +45,7 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             result.X = c.X;
             result.Y = c.Y;
             result.Name = c.Name;
+            result.Visible = c.Visible;
 
             foreach (var buildingDto in c.Buildings) result.Buildings.Add(Map(buildingDto));
 
