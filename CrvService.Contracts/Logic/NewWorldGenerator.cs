@@ -59,22 +59,10 @@ namespace CrvService.Shared.Logic
 
                 if (cooridnates != null)
                 {
-                    Tuple<ICity, string[]> city = null;
-                    //if (i == 0)
-                    //    city = AddCity(new Tuple<float, float>(0, 0), localCityNames);
-                    //else if (i == 1)
-                    //    city = AddCity(new Tuple<float, float>(10, 5), localCityNames);
-                    //else if (i == 2)
-                    //    city = AddCity(new Tuple<float, float>(-10, -5), localCityNames);
-                    //else if (i == 3)
-                    //    city = AddCity(new Tuple<float, float>(10, -5), localCityNames);
-                    //else if (i == 4)
-                    //    city = AddCity(new Tuple<float, float>(-10, 5), localCityNames);
-                    //else
-                        city = AddCity(cooridnates, localCityNames);
-                    //var city = AddCity(cooridnates, localCityNames);
+                    var city = AddCity(cooridnates, localCityNames);
+
                     world.Cities.Add(city.Item1);
-                    //localCityNames = city.Item2;
+                    localCityNames = city.Item2;
                 }
             }
 
@@ -132,7 +120,7 @@ namespace CrvService.Shared.Logic
 
             var accuracy = 1000;
 
-            var width = (CameraWidth - size * 3 / 4)  * accuracy;
+            var width = (CameraWidth - size * 3 / 4) * accuracy;
             var height = (CameraHeight - size * 3 / 4) * accuracy;
 
 
@@ -145,10 +133,8 @@ namespace CrvService.Shared.Logic
             // ReSharper disable once PossibleMultipleEnumeration
             foreach (var city in cities)
             {
-                var x = Math.Abs(city.X * accuracy - cityX);
-                var y = Math.Abs(city.Y * accuracy - cityY);
-                var distance = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
-                var minDistance = (city.Size/2 + size/2 + CityUnDensity) * accuracy;
+                var distance = CoordinateHelper.GetDistance(city.X * accuracy, city.Y * accuracy, cityX, cityY);
+                var minDistance = (city.Size / 2 + size / 2 + CityUnDensity) * accuracy;
 
                 if (distance < minDistance)
                     // ReSharper disable once PossibleMultipleEnumeration

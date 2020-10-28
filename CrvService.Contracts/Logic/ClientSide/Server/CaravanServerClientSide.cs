@@ -44,16 +44,10 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             if (request.Player == null) throw new Exception("Player is null");
 
             var player = PlayerRepository.GetPlayer(request.Player.Guid);
-            if (player==null)
-            {
-                throw new Exception($"Player with guid='{request.Player.Guid}' not found");
-            }
+            if (player == null) throw new Exception($"Player with guid='{request.Player.Guid}' not found");
 
             var world = WorldRepository.GetWorld(request.WorldGuid);
-            if (world == null)
-            {
-                throw new Exception($"World with guid='{request.WorldGuid}' not found");
-            }
+            if (world == null) throw new Exception($"World with guid='{request.WorldGuid}' not found");
 
             player.X = request.Player.X;
             player.Y = request.Player.Y;
@@ -62,6 +56,12 @@ namespace CrvService.Shared.Logic.ClientSide.Server
                     ProcessorsProvider.ProcessClientCommand(clientCommand, world, player);
 
             ProcessorsProvider.Process(world);
+
+            foreach (var worldCity in world.Cities.Collection)
+                if (!player.VisibleCities.Contains(worldCity.Guid))
+                    if (CoordinateHelper.GetDistance(player.X, player.Y, worldCity.X, worldCity.Y) < worldCity.Size * 2)
+                        player.VisibleCities = player.VisibleCities.Union(new[] {worldCity.Guid}).ToArray();
+
             ProcessorsProvider.Process(player);
 
 
