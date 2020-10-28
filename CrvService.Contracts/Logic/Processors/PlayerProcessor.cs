@@ -1,4 +1,5 @@
-﻿using CrvService.Shared.Contracts.Entities;
+﻿using System;
+using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Logic.Processors.Base;
 
 namespace CrvService.Shared.Logic.Processors
@@ -14,6 +15,10 @@ namespace CrvService.Shared.Logic.Processors
         {
             var casted = Cast<IPlayer>(c);
             base.Process(casted);
+
+            //todo: visible cities
+
+            if (casted.IsMoving) casted.IsMoving = !(Math.Abs(casted.X - casted.MoveToX) < 1) || !(Math.Abs(casted.Y - casted.MoveToY) < 1);
         }
     }
 }

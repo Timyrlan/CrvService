@@ -4,8 +4,11 @@ namespace CrvService.Shared.Contracts.Dto
 {
     public class PlayerDto : DtoBase
     {
-        public string[] VisibleCities { get; set; }
-        public float X { get; set; }
-        public float Y { get; set; }
+        public bool IsMoving;
+        public float MoveToX;
+        public float MoveToY;
+        public string[] VisibleCities = { };
+        public float X;
+        public float Y;
     }
 }

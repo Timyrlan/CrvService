@@ -5,7 +5,7 @@ namespace CrvService.Shared.Logic
 {
     public interface ICaravanServer
     {
-        ProcessWorldDto ProcessWorld(string worldGuid, string clientGuid);
+        IProcessWorldResponse ProcessWorld(IProcessWorldRequest request);
         void LoadWorld(IWorld world);
     }
 }

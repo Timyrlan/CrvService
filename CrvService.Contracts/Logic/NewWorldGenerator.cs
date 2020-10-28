@@ -111,8 +111,8 @@ namespace CrvService.Shared.Logic
         {
             if (deep >= 20) return null;
 
-            var width = (int) Math.Floor(CameraWidth*1000 - CameraBorder*1000/2);
-            var height = (int) Math.Floor(CameraHeight*1000 - CameraBorder * 1000/2);
+            var width = (int) Math.Floor(CameraWidth * 1000 - CameraBorder * 1000 / 2);
+            var height = (int) Math.Floor(CameraHeight * 1000 - CameraBorder * 1000 / 2);
 
 
             // ReSharper disable once PossibleLossOfFraction
@@ -123,11 +123,11 @@ namespace CrvService.Shared.Logic
 
             // ReSharper disable once PossibleMultipleEnumeration
             foreach (var city in cities)
-                if (Math.Abs(city.X - cityX) < (city.Size + size) * CityUnDensity*1000 && Math.Abs(city.Y - cityY) < (city.Size + size) * CityUnDensity*1000)
+                if (Math.Abs(city.X - cityX) < (city.Size + size) * CityUnDensity * 1000 && Math.Abs(city.Y - cityY) < (city.Size + size) * CityUnDensity * 1000)
                     // ReSharper disable once PossibleMultipleEnumeration
                     return GenerateInitializedCityVectorInScreenN(size, deep + 1, cities);
 
-            return new Tuple<float, float>(cityX/1000, cityY/1000);
+            return new Tuple<float, float>(cityX / 1000, cityY / 1000);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using CrvService.Shared.Contracts.Entities.Base;
 using CrvService.Shared.Contracts.Entities.Cargos;
+using CrvService.Shared.Contracts.Entities.Cargos.Base;
 
 namespace CrvService.Shared.Logic.Processors.Base
 {

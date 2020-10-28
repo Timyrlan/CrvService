@@ -1,4 +1,5 @@
 ﻿using CrvService.Shared.Contracts.Entities.Buildings;
+using CrvService.Shared.Contracts.Entities.Buildings.Base;
 
 namespace CrvService.Shared.Logic.Processors.Base
 {

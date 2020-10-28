@@ -8,5 +8,8 @@ namespace CrvService.Shared.Logic.ClientSide
         public string[] VisibleCities { get; set; }
         public float X { get; set; }
         public float Y { get; set; }
+        public bool IsMoving { get; set; }
+        public float MoveToX { get; set; }
+        public float MoveToY { get; set; }
     }
 }

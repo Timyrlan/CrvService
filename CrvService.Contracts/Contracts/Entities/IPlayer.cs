@@ -8,5 +8,10 @@ namespace CrvService.Shared.Contracts.Entities
 
         float X { get; set; }
         float Y { get; set; }
+
+        bool IsMoving { get; set; }
+
+        float MoveToX { get; set; }
+        float MoveToY { get; set; }
     }
 }

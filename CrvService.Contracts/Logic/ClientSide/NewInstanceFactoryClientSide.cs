@@ -3,6 +3,7 @@ using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Contracts.Entities.Base;
 using CrvService.Shared.Contracts.Entities.Buildings;
 using CrvService.Shared.Contracts.Entities.Cargos;
+using CrvService.Shared.Contracts.Entities.Cargos.Base;
 using CrvService.Shared.Logic.ClientSide.Buildings;
 using CrvService.Shared.Logic.ClientSide.Cargos;
 

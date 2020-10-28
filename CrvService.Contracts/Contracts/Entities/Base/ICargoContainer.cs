@@ -1,4 +1,5 @@
 ﻿using CrvService.Shared.Contracts.Entities.Cargos;
+using CrvService.Shared.Contracts.Entities.Cargos.Base;
 
 namespace CrvService.Shared.Contracts.Entities.Base
 {

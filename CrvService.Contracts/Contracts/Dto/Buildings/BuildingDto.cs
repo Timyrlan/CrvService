@@ -5,6 +5,6 @@ namespace CrvService.Shared.Contracts.Dto.Buildings
 {
     public class BuildingDto : DtoBase
     {
-        public CargoDto[] Cargos { get; set; } = { };
+        public CargoDto[] Cargos = { };
     }
 }

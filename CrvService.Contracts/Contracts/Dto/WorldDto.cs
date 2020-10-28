@@ -5,7 +5,7 @@ namespace CrvService.Shared.Contracts.Dto
 {
     public class WorldDto : DtoBase
     {
-        public DateTime WorldDate { get; set; }
-        public CityDto[] Cities { get; set; } = { };
+        public CityDto[] Cities = { };
+        public DateTime WorldDate;
     }
 }

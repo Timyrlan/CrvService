@@ -33,7 +33,7 @@ namespace CrvService
 
                 try
                 {
-                    logger.Info($"Starting PVS. environment:{environment}, ipAddresses:{ipAddresses}, version:{version}");
+                    logger.Info($"Starting CrvService. environment:{environment}, ipAddresses:{ipAddresses}, version:{version}");
                     CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
                     var host = CreateHostBuilder(args).Build();
                     host.Run();
