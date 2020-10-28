@@ -17,9 +17,10 @@ namespace CrvService.Shared.Logic
         public const float CoordinateAccuracy = 0.01f;
         public const int InitializeCityCount = 10;
 
-        public NewWorldGenerator(INewInstanceFactory newInstanceFactory)
+        public NewWorldGenerator(INewInstanceFactory newInstanceFactory, IPlayerRepository playerRepository)
         {
             NewInstanceFactory = newInstanceFactory;
+            PlayerRepository = playerRepository;
         }
 
         //private void UpdateVisibleCities()
@@ -38,9 +39,14 @@ namespace CrvService.Shared.Logic
 
         private INewInstanceFactory NewInstanceFactory { get; }
 
+        private IPlayerRepository PlayerRepository { get; }
+
         public Tuple<IWorld, IPlayer> GenerateWorld(IPlayer player)
         {
-            if (player == null) player = NewInstanceFactory.GetNewInstance<IPlayer>();
+            if (player == null)
+                player = NewInstanceFactory.GetNewInstance<IPlayer>();
+            else
+                player = PlayerRepository.GetPlayer(player.Guid) ?? NewInstanceFactory.GetNewInstance<IPlayer>();
 
             var localCityNames = CityNames.Select(c => c).ToArray();
 
@@ -76,7 +82,6 @@ namespace CrvService.Shared.Logic
         {
             var city = NewInstanceFactory.GetNewInstance<ICity>();
             city.Name = localCityNames.First();
-            city.Visible = true;
             city.Size = 1;
             city.X = cooridnates.Item1;
             city.Y = cooridnates.Item2;

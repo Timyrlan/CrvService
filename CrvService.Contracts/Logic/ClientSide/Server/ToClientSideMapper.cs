@@ -29,6 +29,13 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             return result;
         }
 
+        public static IGetNewWorldRequest Map(GetNewWorldRequest c)
+        {
+            var result = new GetNewWorldRequestClientSideEntity();
+            result.Player = Map(c.Player);
+            return result;
+        }
+
         public static IProcessWorldResponse Map(ProcessWorldResponse c)
         {
             var result = new ProcessWorldResponseClientSideEntity();
@@ -94,7 +101,6 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             result.X = c.X;
             result.Y = c.Y;
             result.Name = c.Name;
-            result.Visible = c.Visible;
 
             foreach (var buildingDto in c.Buildings) result.Buildings.Add(Map(buildingDto));
 

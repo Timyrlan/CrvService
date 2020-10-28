@@ -9,7 +9,6 @@ namespace CrvService.Shared.Contracts.Dto
         public string Name;
         public float Size;
 
-        public bool Visible;
         public float X;
         public float Y;
     }

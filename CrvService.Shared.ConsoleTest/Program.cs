@@ -65,7 +65,7 @@ namespace CrvService.Shared.ConsoleTest
         //    var newWorldGenerator = new NewWorldGenerator(newInstanceFactory);
         //    ICaravanServer caravanServer = new CaravanServerClientSide(processorsProvider, newInstanceFactory, newWorldGenerator);
 
-        //    var world = GetWorld();
+        //    var world = GetPlayer();
         //    caravanServer.LoadWorld(world);
         //    var response = caravanServer.ProcessWorld(new ProcessWorldRequest {WorldGuid = world.Guid});
 
@@ -83,7 +83,7 @@ namespace CrvService.Shared.ConsoleTest
         //    var newInstanceFactory = new NewInstanceFactoryClientSide();
         //    var processorsProvider = new ProcessorsProvider(newInstanceFactory);
 
-        //    var world = GetWorld();
+        //    var world = GetPlayer();
 
         //    processorsProvider.Process(world);
         //}

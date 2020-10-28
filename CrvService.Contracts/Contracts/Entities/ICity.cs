@@ -1,5 +1,4 @@
 ﻿using CrvService.Shared.Contracts.Entities.Base;
-using CrvService.Shared.Contracts.Entities.Buildings;
 using CrvService.Shared.Contracts.Entities.Buildings.Base;
 
 namespace CrvService.Shared.Contracts.Entities
@@ -11,7 +10,6 @@ namespace CrvService.Shared.Contracts.Entities
         float Y { get; set; }
         string Name { get; set; }
 
-        bool Visible { get; set; }
 
         ICollectionWrapper<IBuilding> Buildings { get; }
     }

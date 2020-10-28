@@ -12,17 +12,12 @@ namespace CrvService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PingController : ControllerBase
+    public class GetNewWorldController : ControllerBase
     {
-        private readonly ILogger<PingController> _logger;
+        private readonly ILogger<GetNewWorldController> _logger;
 
-        /// <summary>
-        ///     Временный костыль
-        /// </summary>
-        private readonly object _lockObj = new object();
-
-        public PingController(
-            ILogger<PingController> logger,
+        public GetNewWorldController(
+            ILogger<GetNewWorldController> logger,
             ICaravanServer caravanServer)
         {
             CaravanServer = caravanServer;
@@ -33,17 +28,14 @@ namespace CrvService.Controllers
 
 
         [HttpPost]
-        public async Task<ProcessWorldResponse> Get([FromBody] ProcessWorldRequest request)
+        public async Task<ProcessWorldResponse> Get([FromBody] GetNewWorldRequest request)
         {
             try
             {
-                lock (_lockObj)
-                {
-                    var mapped = ToClientSideMapper.Map(request);
-                    var result = CaravanServer.ProcessWorld(mapped);
-                    var response = ToDtoMapper.Map(result);
-                    return response;
-                }
+                var mapped = ToClientSideMapper.Map(request);
+                var result = CaravanServer.GetNewWorld(mapped);
+                var response = ToDtoMapper.Map(result);
+                return response;
             }
             catch (Exception e)
             {

@@ -24,7 +24,7 @@ namespace CrvService.Shared.Logic
             var result = new ProcessWorldResponse();
 
             result.Player = Map(c.Player);
-            result.World = Map(c.World, c.Player);
+            result.World = Map(c.World);
 
             return result;
         }
@@ -36,6 +36,15 @@ namespace CrvService.Shared.Logic
             result.WorldGuid = c.WorldGuid;
             result.Player = Map(c.Player);
             result.ClientCommands = Map(c.ClientCommands);
+
+            return result;
+        }
+
+        public static GetNewWorldRequest Map(IGetNewWorldRequest c)
+        {
+            var result = new GetNewWorldRequest();
+
+            result.Player = Map(c.Player);
 
             return result;
         }
@@ -56,13 +65,13 @@ namespace CrvService.Shared.Logic
             return result;
         }
 
-        public static WorldDto Map(IWorld c, IPlayer player)
+        public static WorldDto Map(IWorld c)
         {
             if (c == null) return null;
             var result = new WorldDto {Type = c.Type, Guid = c.Guid};
 
             result.WorldDate = c.WorldDate;
-            result.Cities = c.Cities.Collection.Select(cc => Map(cc, player?.VisibleCities)).ToArray();
+            result.Cities = c.Cities.Collection.Select(cc => Map(cc)).ToArray();
 
             return result;
         }
@@ -89,7 +98,7 @@ namespace CrvService.Shared.Logic
             return result;
         }
 
-        private static CityDto Map(ICity c, string[] visibleCities)
+        private static CityDto Map(ICity c)
         {
             var result = new CityDto {Type = c.Type, Guid = c.Guid};
 
@@ -97,7 +106,6 @@ namespace CrvService.Shared.Logic
             result.X = c.X;
             result.Y = c.Y;
             result.Name = c.Name;
-            result.Visible = visibleCities?.Contains(c.Guid) ?? false;
             result.Buildings = c.Buildings.Collection.Select(Map).ToArray();
 
             return result;
