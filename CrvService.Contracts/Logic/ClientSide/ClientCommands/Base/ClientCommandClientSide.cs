@@ -3,7 +3,7 @@ using CrvService.Shared.Logic.ClientSide.Base;
 
 namespace CrvService.Shared.Logic.ClientSide.ClientCommands.Base
 {
-    public class ClientCommandClientSide : ClientSideEntityBase, IClientCommand
+    public class ClientCommandClientSideEntity : ClientSideEntityBase, IClientCommand
     {
     }
 }

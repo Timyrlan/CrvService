@@ -68,7 +68,7 @@ namespace CrvService.Shared.Logic.ClientSide.Server
 
         private static IMovePlayerClientCommand MapMovePlayerClientCommand(ClientCommandDto c)
         {
-            var result = new MovePlayerClientCommandClientSide();
+            var result = new MovePlayerClientCommandClientSideEntity();
             result.ToX = c.ToX;
             result.ToY = c.ToY;
             return result;

@@ -3,7 +3,7 @@ using CrvService.Shared.Logic.ClientSide.ClientCommands.Base;
 
 namespace CrvService.Shared.Logic.ClientSide.ClientCommands
 {
-    public class MovePlayerClientCommandClientSide : ClientCommandClientSide, IMovePlayerClientCommand
+    public class MovePlayerClientCommandClientSideEntity : ClientCommandClientSideEntity, IMovePlayerClientCommand
     {
         public float ToX { get; set; }
         public float ToY { get; set; }
