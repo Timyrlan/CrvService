@@ -13,9 +13,9 @@ namespace CrvService.Shared.Logic
         public const float CameraWidth = 20;
         public const float CameraHeight = 10;
         public const float CameraBorder = 2;
-        public const float CityUnDensity = 2;
+        public const float CityUnDensity = 1;
         public const float CoordinateAccuracy = 0.01f;
-        public const int InitializeCityCount = 10;
+        public const int InitializeCityCount = 7;
 
         public NewWorldGenerator(INewInstanceFactory newInstanceFactory, IPlayerRepository playerRepository)
         {
@@ -59,9 +59,22 @@ namespace CrvService.Shared.Logic
 
                 if (cooridnates != null)
                 {
-                    var city = AddCity(cooridnates, localCityNames);
+                    Tuple<ICity, string[]> city = null;
+                    //if (i == 0)
+                    //    city = AddCity(new Tuple<float, float>(0, 0), localCityNames);
+                    //else if (i == 1)
+                    //    city = AddCity(new Tuple<float, float>(10, 5), localCityNames);
+                    //else if (i == 2)
+                    //    city = AddCity(new Tuple<float, float>(-10, -5), localCityNames);
+                    //else if (i == 3)
+                    //    city = AddCity(new Tuple<float, float>(10, -5), localCityNames);
+                    //else if (i == 4)
+                    //    city = AddCity(new Tuple<float, float>(-10, 5), localCityNames);
+                    //else
+                        city = AddCity(cooridnates, localCityNames);
+                    //var city = AddCity(cooridnates, localCityNames);
                     world.Cities.Add(city.Item1);
-                    localCityNames = city.Item2;
+                    //localCityNames = city.Item2;
                 }
             }
 
@@ -114,25 +127,36 @@ namespace CrvService.Shared.Logic
 
         private Tuple<float, float> GenerateInitializedCityVectorInScreenN(float size, int deep, IEnumerable<ICity> cities)
         {
-            if (deep >= 20) return null;
+            if (deep >= 20)
+                return null;
 
-            var width = (int) Math.Floor(CameraWidth * 1000 - CameraBorder * 1000 / 2);
-            var height = (int) Math.Floor(CameraHeight * 1000 - CameraBorder * 1000 / 2);
+            var accuracy = 1000;
+
+            var width = (CameraWidth - size * 3 / 4)  * accuracy;
+            var height = (CameraHeight - size * 3 / 4) * accuracy;
 
 
             // ReSharper disable once PossibleLossOfFraction
-            var cityX = Random.Next(width) / 2 + CameraBorder * 1000 / 2;
+            var cityX = Random.Next((int) Math.Floor(width)) - width / 2;
             // ReSharper disable once PossibleLossOfFraction
-            var cityY = Random.Next(height) / 2 + CameraBorder * 1000 / 2;
+            var cityY = Random.Next((int) Math.Floor(height)) - height / 2;
 
 
             // ReSharper disable once PossibleMultipleEnumeration
             foreach (var city in cities)
-                if (Math.Abs(city.X - cityX) < (city.Size + size) * CityUnDensity * 1000 && Math.Abs(city.Y - cityY) < (city.Size + size) * CityUnDensity * 1000)
+            {
+                var x = Math.Abs(city.X * accuracy - cityX);
+                var y = Math.Abs(city.Y * accuracy - cityY);
+                var distance = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
+                var minDistance = (city.Size/2 + size/2 + CityUnDensity) * accuracy;
+
+                if (distance < minDistance)
                     // ReSharper disable once PossibleMultipleEnumeration
                     return GenerateInitializedCityVectorInScreenN(size, deep + 1, cities);
+            }
 
-            return new Tuple<float, float>(cityX / 1000, cityY / 1000);
+
+            return new Tuple<float, float>(cityX / accuracy, cityY / accuracy);
         }
     }
 }
