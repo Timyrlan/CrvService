@@ -18,7 +18,7 @@ namespace CrvService.Shared.Logic.Processors
 
             //todo: visible cities
 
-            if (casted.IsMoving) casted.IsMoving = !(Math.Abs(casted.X - casted.MoveToX) < 1) || !(Math.Abs(casted.Y - casted.MoveToY) < 1);
+            if (casted.IsMoving) casted.IsMoving = !(Math.Abs(casted.X - casted.MoveToX) < 0.01) || !(Math.Abs(casted.Y - casted.MoveToY) < 0.01);
         }
     }
 }
