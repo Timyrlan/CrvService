@@ -11,7 +11,7 @@ namespace CrvService.Shared.Logic.Processors.Cargos
 
         public override void Process(object c)
         {
-            var casted = Cast<IFreshWater>(c);
+            var casted = H.Cast<IFreshWater>(c);
             base.Process(casted);
         }
     }

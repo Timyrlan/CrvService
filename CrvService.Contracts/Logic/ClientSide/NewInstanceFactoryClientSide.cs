@@ -24,52 +24,52 @@ namespace CrvService.Shared.Logic.ClientSide
         {
             T result = null;
 
-            type = Name.Get(type);
+            type = H.Get(type);
 
-            if (type == Name.Get<IWorld>())
+            if (type == H.Get<IWorld>())
             {
                 var cc = new WorldClientSideEntity();
                 WorldRepository.Add(cc);
                 result = cc as T;
             }
-            else if (type == Name.Get<IPlayer>())
+            else if (type == H.Get<IPlayer>())
             {
                 var cc = new PlayerClientSideEntity();
                 PlayerRepository.Add(cc);
                 result = cc as T;
             }
 
-            else if (type == Name.Get<ICity>())
+            else if (type == H.Get<ICity>())
             {
                 var cc = new CityClientSideEntity();
                 result = cc as T;
             }
-            else if (type == Name.Get<IBramin>())
+            else if (type == H.Get<IBramin>())
             {
                 var cc = new BraminClientSideEntity();
                 result = cc as T;
             }
-            else if (type == Name.Get<ILivingHouse>())
+            else if (type == H.Get<ILivingHouse>())
             {
                 var cc = new LivingHouseClientSideEntity();
                 result = cc as T;
             }
-            else if (type == Name.Get<ISaltEvaporationFactory>())
+            else if (type == H.Get<ISaltEvaporationFactory>())
             {
                 var cc = new SaltEvaporationFactoryClientSideEntity();
                 result = cc as T;
             }
-            else if (type == Name.Get<IFreshWater>())
+            else if (type == H.Get<IFreshWater>())
             {
                 var cc = new FreshWaterClientSideEntity();
                 result = cc as T;
             }
-            else if (type == Name.Get<ISaltWater>())
+            else if (type == H.Get<ISaltWater>())
             {
                 var cc = new SaltWaterClientSideEntity();
                 result = cc as T;
             }
-            else if (type == Name.Get<ISalt>())
+            else if (type == H.Get<ISalt>())
             {
                 var cc = new SaltClientSideEntity();
                 result = cc as T;
@@ -86,7 +86,7 @@ namespace CrvService.Shared.Logic.ClientSide
 
         public T GetNewInstance<T>() where T : class, IEntityBase
         {
-            var type = Name.Get<T>();
+            var type = H.Get<T>();
             return GetNewInstance<T>(type);
         }
 

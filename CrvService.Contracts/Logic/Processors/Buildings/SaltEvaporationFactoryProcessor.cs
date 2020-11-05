@@ -38,7 +38,7 @@ namespace CrvService.Shared.Logic.Processors.Buildings
 
         public override void Process(object entity)
         {
-            var casted = Cast<ISaltEvaporationFactory>(entity);
+            var casted = H.Cast<ISaltEvaporationFactory>(entity);
             base.Process(casted);
         }
     }

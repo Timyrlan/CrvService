@@ -13,7 +13,7 @@ namespace CrvService.Shared.Logic.ClientCommandProcessors
 
         public override void Process(IClientCommand clientCommand, IWorld world, IPlayer player)
         {
-            var casted = Cast<IMovePlayerClientCommand>(clientCommand);
+            var casted = H.Cast<IMovePlayerClientCommand>(clientCommand);
             player.MoveToX = casted.ToX;
             player.MoveToY = casted.ToY;
             player.IsMoving = true;

@@ -4,7 +4,6 @@ using System.Linq;
 using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Contracts.Entities.Buildings;
 using CrvService.Shared.Contracts.Entities.Cargos;
-using CrvService.Shared.Logic.ClientSide;
 
 namespace CrvService.Shared.Logic
 {
@@ -17,10 +16,11 @@ namespace CrvService.Shared.Logic
         public const float CoordinateAccuracy = 0.01f;
         public const int InitializeCityCount = 7;
 
-        public NewWorldGenerator(INewInstanceFactory newInstanceFactory, IPlayerRepository playerRepository)
+        public NewWorldGenerator(INewInstanceFactory newInstanceFactory, IPlayerRepository playerRepository, IWorldRepository worldRepository)
         {
             NewInstanceFactory = newInstanceFactory;
             PlayerRepository = playerRepository;
+            WorldRepository = worldRepository;
         }
 
         //private void UpdateVisibleCities()
@@ -40,17 +40,29 @@ namespace CrvService.Shared.Logic
         private INewInstanceFactory NewInstanceFactory { get; }
 
         private IPlayerRepository PlayerRepository { get; }
+        private IWorldRepository WorldRepository { get; }
 
         public Tuple<IWorld, IPlayer> GenerateWorld(IPlayer player)
         {
             if (player == null)
+            {
                 player = NewInstanceFactory.GetNewInstance<IPlayer>();
+                PlayerRepository.Add(player);
+            }
             else
-                player = PlayerRepository.GetPlayer(player.Guid) ?? NewInstanceFactory.GetNewInstance<IPlayer>();
+            {
+                player = PlayerRepository.GetPlayer(player.Guid);
+                if (player == null)
+                {
+                    player = NewInstanceFactory.GetNewInstance<IPlayer>();
+                    PlayerRepository.Add(player);
+                }
+            }
 
             var localCityNames = CityNames.Select(c => c).ToArray();
 
             var world = NewInstanceFactory.GetNewInstance<IWorld>();
+            WorldRepository.Add(world);
             world.WorldDate = new DateTime(3000, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             for (var i = 0; i < InitializeCityCount; i++)
@@ -98,7 +110,7 @@ namespace CrvService.Shared.Logic
         private void FillCityByHouses(ICity city)
         {
             var countAll = Math.Floor(city.Size);
-            var countToAdd = countAll - city.Buildings.Collection.Count(c => c.Type == Name.Get<ILivingHouse>());
+            var countToAdd = countAll - city.Buildings.Collection.Count(c => c.Type == H.Get<ILivingHouse>());
             countToAdd = countToAdd > 0 ? countToAdd : 0;
             for (var i = 0; i < countToAdd; i++) city.Buildings.Add(AddLivingHouse());
         }

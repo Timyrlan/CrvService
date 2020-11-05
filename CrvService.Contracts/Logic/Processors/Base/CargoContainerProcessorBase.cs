@@ -21,7 +21,7 @@ namespace CrvService.Shared.Logic.Processors.Base
 
         public override void Process(object entity)
         {
-            var casted = Cast<ICargoContainer>(entity);
+            var casted = H.Cast<ICargoContainer>(entity);
             base.Process(casted);
             ProcessCargos(casted);
         }

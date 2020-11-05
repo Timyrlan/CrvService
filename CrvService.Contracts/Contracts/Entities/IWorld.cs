@@ -6,6 +6,6 @@ namespace CrvService.Shared.Contracts.Entities
     public interface IWorld : IEntityBase
     {
         DateTime WorldDate { get; set; }
-        ICollectionWrapper<ICity> Cities { get; set; }
+        ICollectionWrapper<ICity> Cities { get; }
     }
 }

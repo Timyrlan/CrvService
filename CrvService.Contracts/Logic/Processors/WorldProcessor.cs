@@ -12,7 +12,7 @@ namespace CrvService.Shared.Logic.Processors
 
         public override void Process(object c)
         {
-            var casted = Cast<IWorld>(c);
+            var casted = H.Cast<IWorld>(c);
             base.Process(casted);
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed

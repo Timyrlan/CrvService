@@ -56,7 +56,7 @@ namespace CrvService.Shared.Logic.ClientSide
 
         public void Process(object entity)
         {
-            var casted = Cast<IEntityBase>(entity);
+            var casted = H.Cast<IEntityBase>(entity);
             Processors[casted.Type].Process(casted);
         }
 
@@ -68,19 +68,14 @@ namespace CrvService.Shared.Logic.ClientSide
 
         private void AddProcessor<TInterface>(IProcessor processor) where TInterface : IEntityBase
         {
-            Processors.Add(Name.Get<TInterface>(), processor);
+            Processors.Add(H.Get<TInterface>(), processor);
         }
 
         private void AddClientCommandProcessor<TInterface>(IClientCommandProcessor processor) where TInterface : IEntityBase
         {
-            ClientCommandProcessors.Add(Name.Get<TInterface>(), processor);
+            ClientCommandProcessors.Add(H.Get<TInterface>(), processor);
         }
 
-        private T Cast<T>(object c) where T : class
-        {
-            var result = c as T;
-            if (result == null) throw new Exception($"Argument type='{c?.GetType().Name}' not castble to '{typeof(T).Name}'");
-            return result;
-        }
+        
     }
 }

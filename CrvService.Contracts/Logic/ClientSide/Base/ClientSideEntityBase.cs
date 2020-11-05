@@ -6,8 +6,9 @@ namespace CrvService.Shared.Logic.ClientSide.Base
     {
         protected ClientSideEntityBase()
         {
-            Type = GetType().Name.Replace("ClientSideEntity", string.Empty);
-            Guid = System.Guid.NewGuid().ToString();
+            var c = H.InitializeBaseEntity(this);
+            Type = c.Item1;
+            Guid = c.Item2;
         }
 
         public string Guid { get; set; }

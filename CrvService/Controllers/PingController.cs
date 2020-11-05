@@ -16,11 +16,6 @@ namespace CrvService.Controllers
     {
         private readonly ILogger<PingController> _logger;
 
-        /// <summary>
-        ///     Временный костыль
-        /// </summary>
-        private readonly object _lockObj = new object();
-
         public PingController(
             ILogger<PingController> logger,
             ICaravanServer caravanServer)
@@ -37,13 +32,10 @@ namespace CrvService.Controllers
         {
             try
             {
-                lock (_lockObj)
-                {
-                    var mapped = ToClientSideMapper.Map(request);
-                    var result = CaravanServer.ProcessWorld(mapped);
-                    var response = ToDtoMapper.Map(result);
-                    return response;
-                }
+                var mapped = ToClientSideMapper.Map(request);
+                var result = await CaravanServer.ProcessWorldAsync(mapped);
+                var response = ToDtoMapper.Map(result);
+                return response;
             }
             catch (Exception e)
             {

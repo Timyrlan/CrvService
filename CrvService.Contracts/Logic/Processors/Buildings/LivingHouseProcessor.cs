@@ -21,7 +21,7 @@ namespace CrvService.Shared.Logic.Processors.Buildings
 
         public override void Process(object entity)
         {
-            var casted = Cast<ILivingHouse>(entity);
+            var casted = H.Cast<ILivingHouse>(entity);
             base.Process(casted);
         }
     }

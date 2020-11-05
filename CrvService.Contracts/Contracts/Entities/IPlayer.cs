@@ -13,5 +13,7 @@ namespace CrvService.Shared.Contracts.Entities
 
         float MoveToX { get; set; }
         float MoveToY { get; set; }
+
+        string WorldGuid { get; set; }
     }
 }

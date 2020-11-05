@@ -11,7 +11,7 @@ namespace CrvService.Shared.Logic.Processors
 
         public override void Process(object c)
         {
-            var casted = Cast<IBramin>(c);
+            var casted = H.Cast<IBramin>(c);
             base.Process(casted);
             casted.Age++;
         }

@@ -7,7 +7,7 @@ namespace CrvService.Shared.Logic.ClientSide
 {
     public class WorldClientSideEntity : ClientSideEntityBase, IWorld
     {
-        public ICollectionWrapper<ICity> Cities { get; set; } = new ClientSideCollectionWrapper<ICity, CityClientSideEntity>();
+        public ICollectionWrapper<ICity> Cities { get; } = new ClientSideCollectionWrapper<ICity, CityClientSideEntity>();
         public DateTime WorldDate { get; set; }
     }
 }

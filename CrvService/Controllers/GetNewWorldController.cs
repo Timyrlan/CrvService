@@ -33,7 +33,7 @@ namespace CrvService.Controllers
             try
             {
                 var mapped = ToClientSideMapper.Map(request);
-                var result = CaravanServer.GetNewWorld(mapped);
+                var result = await CaravanServer.GetNewWorldAsync(mapped);
                 var response = ToDtoMapper.Map(result);
                 return response;
             }

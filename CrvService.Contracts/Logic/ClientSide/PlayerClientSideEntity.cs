@@ -11,5 +11,6 @@ namespace CrvService.Shared.Logic.ClientSide
         public bool IsMoving { get; set; }
         public float MoveToX { get; set; }
         public float MoveToY { get; set; }
+        public string WorldGuid { get; set; }
     }
 }

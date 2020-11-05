@@ -12,11 +12,6 @@ namespace CrvService.Shared.Logic.ClientSide
 
         public IEnumerable<TInterface> Collection => PrivateCollection;
 
-        public TInterface GetNew()
-        {
-            return new TImplementation();
-        }
-
         public void Remove(string guid)
         {
             var toRemove = PrivateCollection.FirstOrDefault(c => c.Guid == guid);

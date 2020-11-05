@@ -13,7 +13,7 @@ namespace CrvService.Shared.Logic.Processors
 
         public override void Process(object c)
         {
-            var casted = Cast<IPlayer>(c);
+            var casted = H.Cast<IPlayer>(c);
             base.Process(casted);
 
             //todo: visible cities

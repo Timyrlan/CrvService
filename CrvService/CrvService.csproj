@@ -25,6 +25,8 @@
   <ItemGroup>
     <ProjectReference Include="..\CrvService.Configuration\CrvService.Configuration.csproj" />
     <ProjectReference Include="..\CrvService.Contracts\CrvService.Shared.csproj" />
+    <ProjectReference Include="..\CrvService.Data\CrvService.Data.csproj" />
     <ProjectReference Include="..\CrvService.Logging\CrvService.Logging.csproj" />
+    <ProjectReference Include="..\CrvService.ServerSide\CrvService.ServerSide.csproj" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,6 @@ namespace CrvService.Shared.Logic
     {
         IPlayer GetPlayer(string guid);
 
-        void Add(IPlayer world);
+        void Add(IPlayer player);
     }
 }

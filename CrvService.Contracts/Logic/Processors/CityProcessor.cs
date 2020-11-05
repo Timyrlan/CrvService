@@ -12,7 +12,7 @@ namespace CrvService.Shared.Logic.Processors
 
         public override void Process(object c)
         {
-            var casted = Cast<ICity>(c);
+            var casted = H.Cast<ICity>(c);
             base.Process(casted);
 
             foreach (var building in casted.Buildings.Collection) ProcessorsProvider.Process(building);

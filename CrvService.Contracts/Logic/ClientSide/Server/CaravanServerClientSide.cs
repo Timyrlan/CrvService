@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using CrvService.Shared.Contracts.Entities;
 
 // ReSharper disable UseObjectOrCollectionInitializer
@@ -38,6 +39,11 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             return result;
         }
 
+        public Task<IProcessWorldResponse> GetNewWorldAsync(IGetNewWorldRequest request)
+        {
+            return Task.FromResult(GetNewWorld(request));
+        }
+
         public IProcessWorldResponse ProcessWorld(IProcessWorldRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -70,6 +76,11 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             result.World = world;
 
             return result;
+        }
+
+        public Task<IProcessWorldResponse> ProcessWorldAsync(IProcessWorldRequest request)
+        {
+            return Task.FromResult(ProcessWorld(request));
         }
 
         public void LoadWorld(IWorld world)

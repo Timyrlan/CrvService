@@ -65,7 +65,7 @@ namespace CrvService.Shared.Logic.ClientSide.Server
 
             if (clientCommandsDto != null && clientCommandsDto.Any())
                 foreach (var c in clientCommandsDto)
-                    if (c.Type == Name.Get<IMovePlayerClientCommand>())
+                    if (c.Type == H.Get<IMovePlayerClientCommand>())
                         result.Add(MapMovePlayerClientCommand(c));
                     else
                         throw new Exception($"Unexpected client command type='{c.Type}'");

@@ -1,4 +1,6 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 using CrvService.Shared.Contracts.Entities;
 
 namespace CrvService.Shared.Logic.ClientSide.Server
@@ -12,6 +14,11 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             if (Worlds.TryGetValue(guid, out var result)) return result;
 
             return null;
+        }
+
+        public Task<IWorld> GetWorldAsync(string guid)
+        {
+            throw new NotImplementedException();
         }
 
         public void Add(IWorld world)
