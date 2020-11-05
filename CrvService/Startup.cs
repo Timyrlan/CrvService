@@ -1,6 +1,8 @@
+using CrvService.Common;
 using CrvService.Data;
 using CrvService.Options;
 using CrvService.ServerSide;
+using CrvService.ServerSide.BackgroundServices.ProcessWorld;
 using CrvService.Shared.Logic;
 using CrvService.Shared.Logic.ClientSide;
 using CrvService.Shared.Logic.ClientSide.Server;
@@ -55,10 +57,15 @@ namespace CrvService
 
         private void AddServerServerSide(IServiceCollection services)
         {
-            services.AddSingleton<INewInstanceFactory, NewInstanceFactoryEntity>();
             services.AddOptions<CrvServiceContextOptions>(Configuration);
             services.AddSingleton<ICaravanServer, CaravanServerEntity>();
             services.AddSingleton<ICrvServiceContextFactory, CrvServiceContextFactory>();
+            services.AddSingleton<INewInstanceFactory, NewInstanceFactoryEntity>();
+
+            services.AddSingleton<IPeriodicServiceRepository, PeriodicServiceRepository>();
+
+            services.AddOptions<ProcessWorldPeriodicServiceOptions>(Configuration);
+            services.AddSingleton<IHostedService, ProcessWorldPeriodicService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

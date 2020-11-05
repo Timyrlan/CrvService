@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Contracts.Entities.Base;
 using CrvService.Shared.Contracts.Entities.Buildings;
@@ -43,6 +42,7 @@ namespace CrvService.Shared.Logic.ClientSide
 
             #region ClientCommandProcessors initialisation
 
+            AddClientCommandProcessor<IPing>(new PingCommandProcessor(this));
             AddClientCommandProcessor<IMovePlayerClientCommand>(new MovePlayerClientCommandProcessor(this));
 
             #endregion
@@ -75,7 +75,5 @@ namespace CrvService.Shared.Logic.ClientSide
         {
             ClientCommandProcessors.Add(H.Get<TInterface>(), processor);
         }
-
-        
     }
 }

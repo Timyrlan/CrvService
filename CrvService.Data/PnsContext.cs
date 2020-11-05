@@ -23,6 +23,8 @@ namespace CrvService.Data
         private string ConnectionString { get; }
         private ILogger<CrvServiceContext> Logger { get; }
         private IOptions<Logging.Logging> Logging { get; }
+        public DbSet<PingEntity> Pings { get; set; }
+        public DbSet<MovePlayerClientCommandEntity> MovePlayerClientCommands { get; set; }
 
         public DbSet<ClientCommandEntity> ClientCommands { get; set; }
 
@@ -51,6 +53,11 @@ namespace CrvService.Data
             Logger.LogInformation("Start DB migration");
             Database.Migrate();
             Logger.LogInformation($"Finish DB migration at {sw.ElapsedMilliseconds}ms");
+        }
+
+        public async Task DeleteExecutedClientCommands()
+        {
+            await Database.ExecuteSqlRawAsync($"DELETE FROM {nameof(ClientCommands)} WHERE Processed = 1;");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

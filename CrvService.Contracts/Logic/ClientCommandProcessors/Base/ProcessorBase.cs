@@ -1,4 +1,5 @@
-﻿using CrvService.Shared.Contracts.Entities;
+﻿using System;
+using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
 
 namespace CrvService.Shared.Logic.ClientCommandProcessors.Base
@@ -14,6 +15,8 @@ namespace CrvService.Shared.Logic.ClientCommandProcessors.Base
 
         public virtual void Process(IClientCommand clientCommand, IWorld world, IPlayer player)
         {
+            clientCommand.Processed = true;
+            clientCommand.ProcessDateTime = DateTime.UtcNow;
         }
     }
 }

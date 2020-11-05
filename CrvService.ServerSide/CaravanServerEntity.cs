@@ -68,13 +68,9 @@ namespace CrvService.ServerSide
                 worldVersion = world.WorldDate;
 
                 if (!request.ClientCommands.Any())
-                    clientCommands.Add(new PingEntity
-                    {
-                        WorldId = world.Id,
-                        WorldGuid = world.Guid,
-                        PlayerId = player.Id,
-                        PlayerGuid = player.Guid
-                    });
+                    clientCommands.Add(ClientCommandMapper.Map(new PingEntity(), world, player));
+                else
+                    clientCommands.AddRange(request.ClientCommands.Select(c => ClientCommandMapper.Map(c, world, player)));
 
                 context.ClientCommands.AddRange(clientCommands);
 

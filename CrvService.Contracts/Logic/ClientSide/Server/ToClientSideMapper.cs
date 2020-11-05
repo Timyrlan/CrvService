@@ -67,6 +67,8 @@ namespace CrvService.Shared.Logic.ClientSide.Server
                 foreach (var c in clientCommandsDto)
                     if (c.Type == H.Get<IMovePlayerClientCommand>())
                         result.Add(MapMovePlayerClientCommand(c));
+                    else if (c.Type == H.Get<IPing>())
+                        result.Add(MapPingClientCommand(c));
                     else
                         throw new Exception($"Unexpected client command type='{c.Type}'");
 
@@ -75,9 +77,16 @@ namespace CrvService.Shared.Logic.ClientSide.Server
 
         private static IMovePlayerClientCommand MapMovePlayerClientCommand(ClientCommandDto c)
         {
-            var result = new MovePlayerClientCommandClientSideEntity();
+            var result = new MovePlayerClientCommandClientSideEntity {Type = c.Type, Guid = c.Guid};
             result.ToX = c.ToX;
             result.ToY = c.ToY;
+            return result;
+        }
+
+
+        private static IPing MapPingClientCommand(ClientCommandDto c)
+        {
+            var result = new PingClientSideEntity {Type = c.Type, Guid = c.Guid};
             return result;
         }
 

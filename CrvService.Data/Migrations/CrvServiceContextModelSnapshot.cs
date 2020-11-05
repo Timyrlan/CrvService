@@ -116,6 +116,13 @@ namespace CrvService.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("Guid")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -124,6 +131,12 @@ namespace CrvService.Data.Migrations
 
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("ProcessDateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Processed")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Type")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -137,6 +150,8 @@ namespace CrvService.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ClientCommands");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ClientCommandEntity");
                 });
 
             modelBuilder.Entity("CrvService.Data.Entities.PlayerEntity", b =>
@@ -230,6 +245,26 @@ namespace CrvService.Data.Migrations
                     b.HasBaseType("CrvService.Data.Entities.Cargos.Base.CargoEntity");
 
                     b.HasDiscriminator().HasValue("SaltWaterEntity");
+                });
+
+            modelBuilder.Entity("CrvService.Data.Entities.MovePlayerClientCommandEntity", b =>
+                {
+                    b.HasBaseType("CrvService.Data.Entities.ClientCommandEntity");
+
+                    b.Property<float>("ToX")
+                        .HasColumnType("float");
+
+                    b.Property<float>("ToY")
+                        .HasColumnType("float");
+
+                    b.HasDiscriminator().HasValue("MovePlayerClientCommandEntity");
+                });
+
+            modelBuilder.Entity("CrvService.Data.Entities.PingEntity", b =>
+                {
+                    b.HasBaseType("CrvService.Data.Entities.ClientCommandEntity");
+
+                    b.HasDiscriminator().HasValue("PingEntity");
                 });
 
             modelBuilder.Entity("CrvService.Data.Entities.Buildings.Base.BuildingEntity", b =>

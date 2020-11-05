@@ -1,4 +1,5 @@
-﻿using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
+﻿using System;
+using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
 using CrvService.Shared.Logic;
 
 namespace CrvService.Data.Entities
@@ -18,6 +19,9 @@ namespace CrvService.Data.Entities
 
         public int PlayerId { get; set; }
         public string PlayerGuid { get; set; }
+        public DateTime CreationDateTime { get; set; } = DateTime.UtcNow;
+        public bool Processed { get; set; }
+        public DateTime? ProcessDateTime { get; set; }
 
         public string Guid { get; set; }
         public string Type { get; set; }

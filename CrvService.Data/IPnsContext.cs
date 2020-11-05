@@ -26,6 +26,8 @@ namespace CrvService.Data
         DbSet<PlayerEntity> Players { get; set; }
 
         DbSet<ClientCommandEntity> ClientCommands { get; set; }
+        DbSet<MovePlayerClientCommandEntity> MovePlayerClientCommands { get; set; }
+        Task DeleteExecutedClientCommands();
 
         void Migrate();
 

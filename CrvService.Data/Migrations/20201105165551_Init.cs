@@ -18,8 +18,14 @@ namespace CrvService.Data.Migrations
                     WorldGuid = table.Column<string>(nullable: true),
                     PlayerId = table.Column<int>(nullable: false),
                     PlayerGuid = table.Column<string>(nullable: true),
+                    CreationDateTime = table.Column<DateTime>(nullable: false),
+                    Processed = table.Column<bool>(nullable: false),
+                    ProcessDateTime = table.Column<DateTime>(nullable: true),
                     Guid = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true)
+                    Type = table.Column<string>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
+                    ToX = table.Column<float>(nullable: true),
+                    ToY = table.Column<float>(nullable: true)
                 },
                 constraints: table =>
                 {
