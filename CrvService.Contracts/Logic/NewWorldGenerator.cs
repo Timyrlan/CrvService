@@ -16,10 +16,9 @@ namespace CrvService.Shared.Logic
         public const float CoordinateAccuracy = 0.01f;
         public const int InitializeCityCount = 7;
 
-        public NewWorldGenerator(INewInstanceFactory newInstanceFactory, IPlayerRepository playerRepository, IWorldRepository worldRepository)
+        public NewWorldGenerator(INewInstanceFactory newInstanceFactory, IWorldRepository worldRepository)
         {
             NewInstanceFactory = newInstanceFactory;
-            PlayerRepository = playerRepository;
             WorldRepository = worldRepository;
         }
 
@@ -39,31 +38,21 @@ namespace CrvService.Shared.Logic
 
         private INewInstanceFactory NewInstanceFactory { get; }
 
-        private IPlayerRepository PlayerRepository { get; }
         private IWorldRepository WorldRepository { get; }
 
-        public Tuple<IWorld, IPlayer> GenerateWorld(IPlayer player)
+        public Tuple<IWorld, IPlayer> GenerateWorld(string userGuid)
         {
-            if (player == null)
-            {
-                player = NewInstanceFactory.GetNewInstance<IPlayer>();
-                PlayerRepository.Add(player);
-            }
-            else
-            {
-                player = PlayerRepository.GetPlayer(player.Guid);
-                if (player == null)
-                {
-                    player = NewInstanceFactory.GetNewInstance<IPlayer>();
-                    PlayerRepository.Add(player);
-                }
-            }
-
             var localCityNames = CityNames.Select(c => c).ToArray();
 
             var world = NewInstanceFactory.GetNewInstance<IWorld>();
+
             WorldRepository.Add(world);
             world.WorldDate = new DateTime(3000, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+
+            var player = NewInstanceFactory.GetNewInstance<IPlayer>();
+            player.UserGuid = userGuid;
+            world.Players.Add(player);
 
             for (var i = 0; i < InitializeCityCount; i++)
             {

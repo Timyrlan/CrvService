@@ -48,7 +48,6 @@ namespace CrvService
 
         private static void AddServerClientSide(IServiceCollection services)
         {
-            services.AddSingleton<IPlayerRepository, PlayerRepositoryClientSide>();
             services.AddSingleton<IWorldRepository, WorldRepositoryClientSide>();
             services.AddSingleton<INewInstanceFactory, NewInstanceFactoryClientSide>();
             services.AddSingleton<ICaravanServer, CaravanServerClientSide>();

@@ -29,17 +29,17 @@ namespace CrvService.ServerSide
 
         public async Task<IProcessWorldResponse> GetNewWorldAsync(IGetNewWorldRequest request)
         {
-            using (var context = ContextFactory.GetContext())
-            {
-                using (var instances = new Instances(context, NewInstanceFactory))
-                {
-                    var generated = instances.NewWorldGenerator.GenerateWorld(request.Player);
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (string.IsNullOrWhiteSpace(request.UserGuid)) throw new Exception("UserGuid is empty");
 
-                    await context.SaveAsync();
+            using var context = ContextFactory.GetContext();
+            using var instances = new Instances(context, NewInstanceFactory);
 
-                    return new ProcessWorldResponseEntity {Player = generated.Item2, World = generated.Item1};
-                }
-            }
+            var generated = instances.NewWorldGenerator.GenerateWorld(request.UserGuid);
+
+            await context.SaveAsync();
+
+            return new ProcessWorldResponseEntity {Player = generated.Item2, World = generated.Item1};
         }
 
 
@@ -99,7 +99,7 @@ namespace CrvService.ServerSide
                 var result = new ProcessWorldResponseEntity
                 {
                     Player = await context.Players.FirstOrDefaultAsync(c => c.Guid == request.Player.Guid),
-                    World = await context.Worlds.FirstOrDefaultAsync(c => c.Guid == request.WorldGuid)
+                    World = await GetFullWorld(request.WorldGuid, context)
                 };
 
                 return result;
@@ -109,6 +109,14 @@ namespace CrvService.ServerSide
         public void LoadWorld(IWorld world)
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<WorldEntity> GetFullWorld(string worldGuid, ICrvServiceContext context)
+        {
+            return await context.Worlds
+                .Include(c => c.CityCollection).ThenInclude(c => c.BuildingCollection).ThenInclude(c => c.CargoCollection)
+                .Include(c => c.PlayerCollection)
+                .FirstOrDefaultAsync(c => c.Guid == worldGuid);
         }
     }
 }

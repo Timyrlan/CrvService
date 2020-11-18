@@ -4,6 +4,7 @@ namespace CrvService.Shared.Contracts.Entities
 {
     public interface IPlayer : IEntityBase
     {
+        string UserGuid { get; set; }
         string[] VisibleCities { get; set; }
 
         float X { get; set; }
@@ -15,5 +16,8 @@ namespace CrvService.Shared.Contracts.Entities
         float MoveToY { get; set; }
 
         string WorldGuid { get; set; }
+
+
+        IWorld PlayersWorld { get; }
     }
 }

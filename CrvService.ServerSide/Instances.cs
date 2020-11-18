@@ -10,13 +10,12 @@ namespace CrvService.ServerSide
         public Instances(ICrvServiceContext context, INewInstanceFactory newInstanceFactory)
         {
             WorldRepository = new WorldRepositoryEntity(context);
-            PlayerRepository = new PlayerEntityRepository(context);
             ProcessorsProvider = new ProcessorsProvider(newInstanceFactory);
-            NewWorldGenerator = new NewWorldGenerator(newInstanceFactory, PlayerRepository, WorldRepository);
+            NewWorldGenerator = new NewWorldGenerator(newInstanceFactory, WorldRepository);
         }
 
         public IWorldRepository WorldRepository { get; }
-        public IPlayerRepository PlayerRepository { get; }
+
 
         public IProcessorsProvider ProcessorsProvider { get; }
 

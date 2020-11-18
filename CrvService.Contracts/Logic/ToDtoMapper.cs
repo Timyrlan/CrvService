@@ -44,7 +44,7 @@ namespace CrvService.Shared.Logic
         {
             var result = new GetNewWorldRequest();
 
-            result.Player = Map(c.Player);
+            result.UserGuid = c.UserGuid;
 
             return result;
         }

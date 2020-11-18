@@ -32,7 +32,7 @@ namespace CrvService.Shared.Logic.ClientSide.Server
         public static IGetNewWorldRequest Map(GetNewWorldRequest c)
         {
             var result = new GetNewWorldRequestClientSideEntity();
-            result.Player = Map(c.Player);
+            result.UserGuid = c.UserGuid;
             return result;
         }
 

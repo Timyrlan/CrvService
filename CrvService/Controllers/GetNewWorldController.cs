@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CrvService.Logging;
 using CrvService.Shared.Contracts.Dto;
 using CrvService.Shared.Contracts.Dto.Base;
+using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Logic;
 using CrvService.Shared.Logic.ClientSide.Server;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ namespace CrvService.Controllers
         {
             try
             {
-                var mapped = ToClientSideMapper.Map(request);
+                IGetNewWorldRequest mapped = ToClientSideMapper.Map(request);
                 var result = await CaravanServer.GetNewWorldAsync(mapped);
                 var response = ToDtoMapper.Map(result);
                 return response;

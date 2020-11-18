@@ -2,6 +2,6 @@
 {
     public class GetNewWorldRequest
     {
-        public PlayerDto Player;
+        public string UserGuid;
     }
 }

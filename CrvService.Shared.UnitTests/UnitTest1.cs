@@ -17,8 +17,7 @@ namespace CrvService.Shared.UnitTests
         public void Test1()
         {
             var worldRepository = new WorldRepositoryClientSide();
-            var playerRepository = new PlayerRepositoryClientSide();
-            var newInstanceFactory = new NewInstanceFactoryClientSide(worldRepository, playerRepository);
+            var newInstanceFactory = new NewInstanceFactoryClientSide(worldRepository);
             var processorsProvider = new ProcessorsProvider(newInstanceFactory);
 
             var world = new WorldClientSideEntity();

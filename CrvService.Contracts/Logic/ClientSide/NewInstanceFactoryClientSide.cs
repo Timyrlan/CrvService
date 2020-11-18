@@ -11,14 +11,12 @@ namespace CrvService.Shared.Logic.ClientSide
 {
     public class NewInstanceFactoryClientSide : INewInstanceFactory
     {
-        public NewInstanceFactoryClientSide(IWorldRepository worldRepository, IPlayerRepository playerRepository)
+        public NewInstanceFactoryClientSide(IWorldRepository worldRepository)
         {
             WorldRepository = worldRepository;
-            PlayerRepository = playerRepository;
         }
 
         private IWorldRepository WorldRepository { get; }
-        private IPlayerRepository PlayerRepository { get; }
 
         public T GetNewInstance<T>(string type) where T : class, IEntityBase
         {
@@ -35,7 +33,6 @@ namespace CrvService.Shared.Logic.ClientSide
             else if (type == H.Get<IPlayer>())
             {
                 var cc = new PlayerClientSideEntity();
-                PlayerRepository.Add(cc);
                 result = cc as T;
             }
 

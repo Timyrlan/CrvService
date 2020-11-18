@@ -4,6 +4,6 @@ namespace CrvService.Shared.Logic.ClientSide
 {
     public class GetNewWorldRequestClientSideEntity : IGetNewWorldRequest
     {
-        public IPlayer Player { get; set; }
+        public string UserGuid { get; set; }
     }
 }

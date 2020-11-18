@@ -7,5 +7,6 @@ namespace CrvService.Shared.Contracts.Entities
     {
         DateTime WorldDate { get; set; }
         ICollectionWrapper<ICity> Cities { get; }
+        ICollectionWrapper<IPlayer> Players { get; }
     }
 }

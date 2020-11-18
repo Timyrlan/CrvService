@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CrvService.Common;
 using CrvService.Common.Options;
@@ -37,18 +38,15 @@ namespace CrvService.ServerSide.BackgroundServices.ProcessWorld
                 {
                     var commands = await context.ClientCommands.Where(c => !c.Processed).Take(1000).ToArrayAsync();
 
-                    if (!commands.Any())
+                    if (commands.Any())
                     {
-                        await DeleteExecutedClientCommands(context);
-                        return;
+                        var worldGuids = commands.Select(c => c.WorldGuid).Distinct().ToArray();
+                        foreach (var worldGuid in worldGuids) await ProcessWorld(worldGuid, commands.Where(c => c.WorldGuid == worldGuid).OrderBy(c => c.Id).ToArray(), context);
+
+
+                        await context.SaveAsync();
                     }
 
-
-                    var worldGuids = commands.Select(c => c.WorldGuid).Distinct().ToArray();
-                    foreach (var worldGuid in worldGuids) await ProcessWorld(worldGuid, commands.Where(c => c.WorldGuid == worldGuid).OrderBy(c => c.Id).ToArray(), context);
-
-
-                    await context.SaveAsync();
                     await DeleteExecutedClientCommands(context);
                 }
         }
@@ -60,18 +58,39 @@ namespace CrvService.ServerSide.BackgroundServices.ProcessWorld
 
         private async Task ProcessWorld(string worldGuid, ClientCommandEntity[] commands, ICrvServiceContext context)
         {
-            var world = await context.Worlds.FirstOrDefaultAsync(c => c.Guid == worldGuid);
+            var world = await GetFullWorld(worldGuid, context);
             IPlayer player = null;
+            var processedPlayers = new List<string>();
             foreach (var command in commands)
             {
-                if (player == null || player.Guid != command.PlayerGuid) player = await context.Players.FirstOrDefaultAsync(c => c.Guid == command.PlayerGuid);
+                if (player == null || !processedPlayers.Contains(player.Guid))
+                {
+
+                    player = world.PlayerCollection.FirstOrDefault(c => c.Guid == command.PlayerGuid);
+
+                    if (player!= null)
+                    {
+                        ProcessorsProvider.Process(player);
+                        processedPlayers.Add(player.Guid);
+                    }
+                }
 
                 ProcessorsProvider.ProcessClientCommand(command, world, player);
             }
 
+
             ProcessorsProvider.Process(world);
         }
+
+        private async Task<WorldEntity> GetFullWorld(string worldGuid, ICrvServiceContext context)
+        {
+            return await context.Worlds
+                .Include(c => c.CityCollection).ThenInclude(c => c.BuildingCollection).ThenInclude(c => c.CargoCollection)
+                .Include(c => c.PlayerCollection)
+                .FirstOrDefaultAsync(c => c.Guid == worldGuid);
+        }
     }
+
 
     public class ProcessWorldPeriodicServiceOptions : PeriodicServiceOptions
     {

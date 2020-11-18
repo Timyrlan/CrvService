@@ -9,27 +9,28 @@ namespace CrvService.Shared.Logic.ClientSide.Server
 {
     public class CaravanServerClientSide : ICaravanServer
     {
-        public CaravanServerClientSide(IProcessorsProvider processorsProvider, INewInstanceFactory newInstanceFactory, INewWorldGenerator newWorldGenerator, IPlayerRepository playerRepository, IWorldRepository worldRepository)
+        public CaravanServerClientSide(IProcessorsProvider processorsProvider, INewInstanceFactory newInstanceFactory, INewWorldGenerator newWorldGenerator, IWorldRepository worldRepository)
         {
             ProcessorsProvider = processorsProvider;
             NewInstanceFactory = newInstanceFactory;
             NewWorldGenerator = newWorldGenerator;
-            PlayerRepository = playerRepository;
+
             WorldRepository = worldRepository;
         }
 
         private IProcessorsProvider ProcessorsProvider { get; }
         private INewInstanceFactory NewInstanceFactory { get; }
         private INewWorldGenerator NewWorldGenerator { get; }
-        private IPlayerRepository PlayerRepository { get; }
+
         private IWorldRepository WorldRepository { get; }
 
 
         public IProcessWorldResponse GetNewWorld(IGetNewWorldRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
+            if (string.IsNullOrWhiteSpace(request.UserGuid)) throw new Exception("UserGuid is empty");
 
-            var generated = NewWorldGenerator.GenerateWorld(request.Player);
+            var generated = NewWorldGenerator.GenerateWorld(request.UserGuid);
 
 
             var result = new ProcessWorldResponseClientSideEntity();
@@ -49,11 +50,11 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             if (request == null) throw new ArgumentNullException(nameof(request));
             if (request.Player == null) throw new Exception("Player is null");
 
-            var player = PlayerRepository.GetPlayer(request.Player.Guid);
-            if (player == null) throw new Exception($"Player with guid='{request.Player.Guid}' not found");
-
             var world = WorldRepository.GetWorld(request.WorldGuid);
             if (world == null) throw new Exception($"World with guid='{request.WorldGuid}' not found");
+
+            var player = world.Players.Collection.FirstOrDefault(c => c.Guid == request.Player.Guid);
+            if (player == null) throw new Exception($"Player with guid='{request.Player.Guid}' not found");
 
             player.X = request.Player.X;
             player.Y = request.Player.Y;

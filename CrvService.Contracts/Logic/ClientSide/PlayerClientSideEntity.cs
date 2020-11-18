@@ -5,6 +5,7 @@ namespace CrvService.Shared.Logic.ClientSide
 {
     public class PlayerClientSideEntity : ClientSideEntityBase, IPlayer
     {
+        public string UserGuid { get; set; }
         public string[] VisibleCities { get; set; }
         public float X { get; set; }
         public float Y { get; set; }
@@ -12,5 +13,6 @@ namespace CrvService.Shared.Logic.ClientSide
         public float MoveToX { get; set; }
         public float MoveToY { get; set; }
         public string WorldGuid { get; set; }
+        public IWorld PlayersWorld { get; set; }
     }
 }

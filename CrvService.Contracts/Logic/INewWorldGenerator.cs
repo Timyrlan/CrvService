@@ -5,6 +5,6 @@ namespace CrvService.Shared.Logic
 {
     public interface INewWorldGenerator
     {
-        Tuple<IWorld, IPlayer> GenerateWorld(IPlayer player);
+        Tuple<IWorld, IPlayer> GenerateWorld(string userGuid);
     }
 }

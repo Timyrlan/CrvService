@@ -26,8 +26,12 @@ namespace CrvService.Data.Entities
         #region City
 
         private ICollectionWrapper<ICity> _cities;
+        private ICollectionWrapper<IPlayer> _players;
         [NotMapped] public ICollectionWrapper<ICity> Cities => _cities ??= new EntityCollectionWrapper<ICity, CityEntity>(CityCollection);
         public virtual ICollection<CityEntity> CityCollection { get; set; } = new List<CityEntity>();
+
+        [NotMapped] public ICollectionWrapper<IPlayer> Players => _players ??= new EntityCollectionWrapper<IPlayer, PlayerEntity>(PlayerCollection);
+        public virtual ICollection<PlayerEntity> PlayerCollection { get; set; } = new List<PlayerEntity>();
 
         #endregion
     }

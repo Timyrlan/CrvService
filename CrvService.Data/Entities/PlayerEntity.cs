@@ -17,8 +17,12 @@ namespace CrvService.Data.Entities
 
         public string VisibleCitiesStr { get; set; }
 
+        public WorldEntity World { get; set; }
+
         public string Guid { get; set; }
         public string Type { get; set; }
+
+        public string UserGuid { get; set; }
 
         [NotMapped]
         public string[] VisibleCities
@@ -34,5 +38,12 @@ namespace CrvService.Data.Entities
         public float MoveToY { get; set; }
 
         public string WorldGuid { get; set; }
+
+        [NotMapped]
+        public IWorld PlayersWorld
+        {
+            get => World;
+            set => World = (WorldEntity) value;
+        }
     }
 }

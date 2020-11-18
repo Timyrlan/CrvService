@@ -2,6 +2,6 @@
 {
     public interface IGetNewWorldRequest
     {
-        IPlayer Player { get; set; }
+        string UserGuid { get; set; }
     }
 }

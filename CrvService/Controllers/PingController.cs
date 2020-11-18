@@ -37,6 +37,15 @@ namespace CrvService.Controllers
                 var response = ToDtoMapper.Map(result);
                 return response;
             }
+            catch (ProcessRequestException e)
+            {
+                var result = new ProcessWorldResponse
+                {
+                    Status = new ResponseStatus {Code = (int) e.Code, ErrorMessage = e.Message}
+                };
+                _logger.LogError(e, $"Error ProcessRequestException {GetType().Name} with request='{request.ToLog()}', response='{result.ToLog()}'");
+                return result;
+            }
             catch (Exception e)
             {
                 var result = new ProcessWorldResponse

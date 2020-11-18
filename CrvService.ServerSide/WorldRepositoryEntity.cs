@@ -24,7 +24,7 @@ namespace CrvService.ServerSide
 
         public async Task<IWorld> GetWorldAsync(string guid)
         {
-            return await Context.Worlds.FirstOrDefaultAsync(c => c.Guid == guid);
+            return await Context.Worlds.Include(c => c.Players).FirstOrDefaultAsync(c => c.Guid == guid);
         }
 
         public void Add(IWorld world)
