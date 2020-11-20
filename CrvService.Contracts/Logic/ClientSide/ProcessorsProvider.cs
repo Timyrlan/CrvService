@@ -3,8 +3,8 @@ using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Contracts.Entities.Base;
 using CrvService.Shared.Contracts.Entities.Buildings;
 using CrvService.Shared.Contracts.Entities.Cargos;
-using CrvService.Shared.Contracts.Entities.ClientCommands;
-using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands.Base;
 using CrvService.Shared.Logic.ClientCommandProcessors;
 using CrvService.Shared.Logic.ClientCommandProcessors.Base;
 using CrvService.Shared.Logic.Processors;
@@ -22,11 +22,11 @@ namespace CrvService.Shared.Logic.ClientSide
 
             #region Processors initialisation
 
-            AddProcessor<IWorld>(new WorldProcessor(this));
+            AddProcessor<IWorld>(new WorldProcessor(this, newInstanceFactory));
 
-            AddProcessor<IBramin>(new BraminProcessor(this));
-            AddProcessor<ICity>(new CityProcessor(this));
-            AddProcessor<IPlayer>(new PlayerProcessor(this));
+            AddProcessor<IBramin>(new BraminProcessor(this, newInstanceFactory));
+            AddProcessor<ICity>(new CityProcessor(this, newInstanceFactory));
+            AddProcessor<IPlayer>(new PlayerProcessor(this, newInstanceFactory));
 
 
             //Buildings
@@ -34,9 +34,9 @@ namespace CrvService.Shared.Logic.ClientSide
             AddProcessor<ISaltEvaporationFactory>(new SaltEvaporationFactoryProcessor(this, NewInstanceFactory));
 
             //Cargos
-            AddProcessor<IFreshWater>(new FreshWaterProcessor(this));
-            AddProcessor<ISaltWater>(new SaltWaterProcessor(this));
-            AddProcessor<ISalt>(new SaltProcessor(this));
+            AddProcessor<IFreshWater>(new FreshWaterProcessor(this, newInstanceFactory));
+            AddProcessor<ISaltWater>(new SaltWaterProcessor(this, newInstanceFactory));
+            AddProcessor<ISalt>(new SaltProcessor(this, newInstanceFactory));
 
             #endregion
 

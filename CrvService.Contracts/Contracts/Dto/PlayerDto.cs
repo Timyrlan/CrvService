@@ -1,4 +1,5 @@
 ﻿using CrvService.Shared.Contracts.Dto.Base;
+using CrvService.Shared.Contracts.Dto.Commands.ServerCommands.Base;
 
 namespace CrvService.Shared.Contracts.Dto
 {
@@ -10,5 +11,6 @@ namespace CrvService.Shared.Contracts.Dto
         public string[] VisibleCities = { };
         public float X;
         public float Y;
+        public ServerCommandDto[] ServerCommands { get; set; }
     }
 }

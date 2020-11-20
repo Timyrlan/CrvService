@@ -5,6 +5,7 @@ using CrvService.Common;
 using CrvService.Common.Options;
 using CrvService.Data;
 using CrvService.Data.Entities;
+using CrvService.Data.Entities.Commands.ClientCommands.Base;
 using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Logic;
 using Microsoft.EntityFrameworkCore;

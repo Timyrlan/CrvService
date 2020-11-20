@@ -5,6 +5,8 @@ using CrvService.Data.Entities.Buildings;
 using CrvService.Data.Entities.Buildings.Base;
 using CrvService.Data.Entities.Cargos;
 using CrvService.Data.Entities.Cargos.Base;
+using CrvService.Data.Entities.Commands.ClientCommands.Base;
+using CrvService.Data.Entities.Commands.ServerCommands.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrvService.Data
@@ -26,7 +28,9 @@ namespace CrvService.Data
         DbSet<PlayerEntity> Players { get; set; }
 
         DbSet<ClientCommandEntity> ClientCommands { get; set; }
-        DbSet<MovePlayerClientCommandEntity> MovePlayerClientCommands { get; set; }
+
+        DbSet<ServerCommandEntity> ServerCommands { get; set; }
+        DbSet<EnterCityServerCommandEntity> EnterCityServerCommands { get; set; }
         Task DeleteExecutedClientCommands();
 
         void Migrate();

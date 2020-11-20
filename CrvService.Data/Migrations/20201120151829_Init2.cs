@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrvService.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class Init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,27 +30,6 @@ namespace CrvService.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ClientCommands", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Players",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    VisibleCitiesStr = table.Column<string>(nullable: true),
-                    Guid = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
-                    X = table.Column<float>(nullable: false),
-                    Y = table.Column<float>(nullable: false),
-                    IsMoving = table.Column<bool>(nullable: false),
-                    MoveToX = table.Column<float>(nullable: false),
-                    MoveToY = table.Column<float>(nullable: false),
-                    WorldGuid = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Players", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,6 +73,35 @@ namespace CrvService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    VisibleCitiesStr = table.Column<string>(nullable: true),
+                    WorldId = table.Column<int>(nullable: true),
+                    Guid = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    UserGuid = table.Column<string>(nullable: true),
+                    X = table.Column<float>(nullable: false),
+                    Y = table.Column<float>(nullable: false),
+                    IsMoving = table.Column<bool>(nullable: false),
+                    MoveToX = table.Column<float>(nullable: false),
+                    MoveToY = table.Column<float>(nullable: false),
+                    WorldGuid = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Players_Worlds_WorldId",
+                        column: x => x.WorldId,
+                        principalTable: "Worlds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Buildings",
                 columns: table => new
                 {
@@ -113,6 +121,34 @@ namespace CrvService.Data.Migrations
                         principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServerCommands",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    WorldGuid = table.Column<string>(nullable: true),
+                    PlayerId = table.Column<int>(nullable: false),
+                    CreationDateTime = table.Column<DateTime>(nullable: false),
+                    PlayerGuid = table.Column<string>(nullable: true),
+                    Guid = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    Processed = table.Column<bool>(nullable: false),
+                    ProcessDateTime = table.Column<DateTime>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
+                    CityGuid = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServerCommands", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ServerCommands_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +188,16 @@ namespace CrvService.Data.Migrations
                 name: "IX_Cities_WorldEntityId",
                 table: "Cities",
                 column: "WorldEntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Players_WorldId",
+                table: "Players",
+                column: "WorldId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServerCommands_PlayerId",
+                table: "ServerCommands",
+                column: "PlayerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -163,10 +209,13 @@ namespace CrvService.Data.Migrations
                 name: "ClientCommands");
 
             migrationBuilder.DropTable(
-                name: "Players");
+                name: "ServerCommands");
 
             migrationBuilder.DropTable(
                 name: "Buildings");
+
+            migrationBuilder.DropTable(
+                name: "Players");
 
             migrationBuilder.DropTable(
                 name: "Cities");

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CrvService.Shared.Contracts.Entities;
-using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands.Base;
 using CrvService.Shared.Logic.ClientCommandProcessors.Base;
 using CrvService.Shared.Logic.Processors.Base;
 

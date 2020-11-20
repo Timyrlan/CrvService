@@ -23,5 +23,11 @@ namespace CrvService.Shared.Logic.ClientSide
         {
             PrivateCollection.Add(entity);
         }
+
+        public void LoadCollection(IEnumerable<TInterface> collection)
+        {
+            PrivateCollection.Clear();
+            PrivateCollection.AddRange(collection);
+        }
     }
 }

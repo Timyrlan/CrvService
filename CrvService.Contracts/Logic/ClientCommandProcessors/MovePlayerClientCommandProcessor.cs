@@ -1,6 +1,6 @@
 ﻿using CrvService.Shared.Contracts.Entities;
-using CrvService.Shared.Contracts.Entities.ClientCommands;
-using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands.Base;
 using CrvService.Shared.Logic.ClientCommandProcessors.Base;
 
 namespace CrvService.Shared.Logic.ClientCommandProcessors

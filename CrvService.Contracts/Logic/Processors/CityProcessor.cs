@@ -5,7 +5,7 @@ namespace CrvService.Shared.Logic.Processors
 {
     public class CityProcessor : ProcessorBase
     {
-        public CityProcessor(IProcessorsProvider processorsProvider) : base(processorsProvider)
+        public CityProcessor(IProcessorsProvider processorsProvider, INewInstanceFactory newInstanceFactory) : base(processorsProvider, newInstanceFactory)
         {
         }
 

@@ -1,4 +1,4 @@
-﻿using CrvService.Shared.Contracts.Dto.ClientCommands.Base;
+﻿using CrvService.Shared.Contracts.Dto.Commands.ClientCommands.Base;
 
 namespace CrvService.Shared.Contracts.Dto
 {
@@ -8,5 +8,6 @@ namespace CrvService.Shared.Contracts.Dto
 
         public PlayerDto Player;
         public string WorldGuid;
+        public int LastServerCommandProcessed { get; set; }
     }
 }

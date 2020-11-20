@@ -4,14 +4,16 @@ using System.Linq;
 using CrvService.Shared.Contracts.Dto;
 using CrvService.Shared.Contracts.Dto.Buildings;
 using CrvService.Shared.Contracts.Dto.Cargos;
-using CrvService.Shared.Contracts.Dto.ClientCommands;
-using CrvService.Shared.Contracts.Dto.ClientCommands.Base;
+using CrvService.Shared.Contracts.Dto.Commands.ClientCommands;
+using CrvService.Shared.Contracts.Dto.Commands.ClientCommands.Base;
+using CrvService.Shared.Contracts.Dto.Commands.ServerCommands.Base;
 using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Contracts.Entities.Buildings.Base;
 using CrvService.Shared.Contracts.Entities.Cargos.Base;
-using CrvService.Shared.Contracts.Entities.ClientCommands;
-using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
-using CrvService.Shared.Logic.ClientSide;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ServerCommands;
+using CrvService.Shared.Contracts.Entities.Commands.ServerCommands.Base;
 
 // ReSharper disable UseObjectOrCollectionInitializer
 
@@ -36,6 +38,7 @@ namespace CrvService.Shared.Logic
             result.WorldGuid = c.WorldGuid;
             result.Player = Map(c.Player);
             result.ClientCommands = Map(c.ClientCommands);
+            result.LastServerCommandProcessed = c.LastServerCommandProcessed;
 
             return result;
         }
@@ -61,6 +64,7 @@ namespace CrvService.Shared.Logic
             result.IsMoving = c.IsMoving;
             result.MoveToX = c.MoveToX;
             result.MoveToY = c.MoveToY;
+            result.ServerCommands = c.Commands.Collection.Where(cc => !cc.Processed).Select(Map).ToArray();
 
             return result;
         }
@@ -90,6 +94,13 @@ namespace CrvService.Shared.Logic
             return result.ToArray();
         }
 
+        private static ServerCommandDto Map(IServerCommand c)
+        {
+            if (c.Type == H.Get<IEnterCityServerCommand>())
+                return Map(Cast<IEnterCityServerCommand>(c));
+            throw new Exception($"Unexpexted client command type='{c.Type}'");
+        }
+
         private static ClientCommandDto Map(IMovePlayerClientCommand c)
         {
             var result = new MovePlayerClientCommandDto {Type = c.Type, Guid = c.Guid};
@@ -97,6 +108,17 @@ namespace CrvService.Shared.Logic
             result.ToY = c.ToY;
             return result;
         }
+
+        private static ServerCommandDto Map(IEnterCityServerCommand c)
+        {
+            var result = new ServerCommandDto {Type = c.Type, Guid = c.Guid};
+            result.WorldGuid = c.WorldGuid;
+            result.CityGuid = c.CityGuid;
+            result.Id = c.Id;
+
+            return result;
+        }
+
 
         private static CityDto Map(ICity c)
         {

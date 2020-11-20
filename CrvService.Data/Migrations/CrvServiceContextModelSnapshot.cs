@@ -110,7 +110,7 @@ namespace CrvService.Data.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("CrvService.Data.Entities.ClientCommandEntity", b =>
+            modelBuilder.Entity("CrvService.Data.Entities.Commands.ClientCommands.Base.ClientCommandEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,6 +152,49 @@ namespace CrvService.Data.Migrations
                     b.ToTable("ClientCommands");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("ClientCommandEntity");
+                });
+
+            modelBuilder.Entity("CrvService.Data.Entities.Commands.ServerCommands.Base.ServerCommandEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Guid")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PlayerGuid")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ProcessDateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Processed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("WorldGuid")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("ServerCommands");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ServerCommandEntity");
                 });
 
             modelBuilder.Entity("CrvService.Data.Entities.PlayerEntity", b =>
@@ -255,9 +298,9 @@ namespace CrvService.Data.Migrations
                     b.HasDiscriminator().HasValue("SaltWaterEntity");
                 });
 
-            modelBuilder.Entity("CrvService.Data.Entities.MovePlayerClientCommandEntity", b =>
+            modelBuilder.Entity("CrvService.Data.Entities.Commands.ClientCommands.MovePlayerClientCommandEntity", b =>
                 {
-                    b.HasBaseType("CrvService.Data.Entities.ClientCommandEntity");
+                    b.HasBaseType("CrvService.Data.Entities.Commands.ClientCommands.Base.ClientCommandEntity");
 
                     b.Property<float>("ToX")
                         .HasColumnType("float");
@@ -268,11 +311,21 @@ namespace CrvService.Data.Migrations
                     b.HasDiscriminator().HasValue("MovePlayerClientCommandEntity");
                 });
 
-            modelBuilder.Entity("CrvService.Data.Entities.PingEntity", b =>
+            modelBuilder.Entity("CrvService.Data.Entities.Commands.ClientCommands.PingEntity", b =>
                 {
-                    b.HasBaseType("CrvService.Data.Entities.ClientCommandEntity");
+                    b.HasBaseType("CrvService.Data.Entities.Commands.ClientCommands.Base.ClientCommandEntity");
 
                     b.HasDiscriminator().HasValue("PingEntity");
+                });
+
+            modelBuilder.Entity("CrvService.Data.Entities.Commands.ServerCommands.Base.EnterCityServerCommandEntity", b =>
+                {
+                    b.HasBaseType("CrvService.Data.Entities.Commands.ServerCommands.Base.ServerCommandEntity");
+
+                    b.Property<string>("CityGuid")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasDiscriminator().HasValue("EnterCityServerCommandEntity");
                 });
 
             modelBuilder.Entity("CrvService.Data.Entities.Buildings.Base.BuildingEntity", b =>
@@ -294,6 +347,15 @@ namespace CrvService.Data.Migrations
                     b.HasOne("CrvService.Data.Entities.WorldEntity", null)
                         .WithMany("CityCollection")
                         .HasForeignKey("WorldEntityId");
+                });
+
+            modelBuilder.Entity("CrvService.Data.Entities.Commands.ServerCommands.Base.ServerCommandEntity", b =>
+                {
+                    b.HasOne("CrvService.Data.Entities.PlayerEntity", "Player")
+                        .WithMany("CommandsCollection")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CrvService.Data.Entities.PlayerEntity", b =>

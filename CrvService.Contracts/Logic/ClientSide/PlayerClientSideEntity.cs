@@ -1,5 +1,8 @@
 ﻿using CrvService.Shared.Contracts.Entities;
+using CrvService.Shared.Contracts.Entities.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ServerCommands.Base;
 using CrvService.Shared.Logic.ClientSide.Base;
+using CrvService.Shared.Logic.ClientSide.Commands.ServerCommands.Base;
 
 namespace CrvService.Shared.Logic.ClientSide
 {
@@ -14,5 +17,6 @@ namespace CrvService.Shared.Logic.ClientSide
         public float MoveToY { get; set; }
         public string WorldGuid { get; set; }
         public IWorld PlayersWorld { get; set; }
+        public ICollectionWrapper<IServerCommand> Commands { get; } = new ClientSideCollectionWrapper<IServerCommand, ServerCommandClientSideEntity>();
     }
 }

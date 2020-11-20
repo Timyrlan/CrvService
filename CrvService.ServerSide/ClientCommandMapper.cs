@@ -1,7 +1,9 @@
 ﻿using System;
 using CrvService.Data.Entities;
-using CrvService.Shared.Contracts.Entities.ClientCommands;
-using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
+using CrvService.Data.Entities.Commands.ClientCommands;
+using CrvService.Data.Entities.Commands.ClientCommands.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands.Base;
 using CrvService.Shared.Logic;
 
 namespace CrvService.ServerSide

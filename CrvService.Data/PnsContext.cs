@@ -5,6 +5,9 @@ using CrvService.Data.Entities.Buildings;
 using CrvService.Data.Entities.Buildings.Base;
 using CrvService.Data.Entities.Cargos;
 using CrvService.Data.Entities.Cargos.Base;
+using CrvService.Data.Entities.Commands.ClientCommands;
+using CrvService.Data.Entities.Commands.ClientCommands.Base;
+using CrvService.Data.Entities.Commands.ServerCommands.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -24,9 +27,11 @@ namespace CrvService.Data
         private ILogger<CrvServiceContext> Logger { get; }
         private IOptions<Logging.Logging> Logging { get; }
         public DbSet<PingEntity> Pings { get; set; }
-        public DbSet<MovePlayerClientCommandEntity> MovePlayerClientCommands { get; set; }
 
         public DbSet<ClientCommandEntity> ClientCommands { get; set; }
+        public DbSet<MovePlayerClientCommandEntity> MovePlayerClientCommands { get; set; }
+        public DbSet<ServerCommandEntity> ServerCommands { get; set; }
+        public DbSet<EnterCityServerCommandEntity> EnterCityServerCommands { get; set; }
 
         public DbSet<BuildingEntity> Buildings { get; set; }
         public DbSet<LivingHouseEntity> LivingHouses { get; set; }

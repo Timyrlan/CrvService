@@ -1,4 +1,4 @@
-﻿using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
+﻿using CrvService.Shared.Contracts.Entities.Commands.ClientCommands.Base;
 
 namespace CrvService.Shared.Contracts.Entities
 {
@@ -9,5 +9,7 @@ namespace CrvService.Shared.Contracts.Entities
         IPlayer Player { get; set; }
 
         IClientCommand[] ClientCommands { get; set; }
+
+        int LastServerCommandProcessed { get; set; }
     }
 }

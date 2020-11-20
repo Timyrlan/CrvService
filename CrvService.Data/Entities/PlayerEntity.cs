@@ -1,5 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using CrvService.Data.Entities.Commands.ServerCommands.Base;
 using CrvService.Shared.Contracts.Entities;
+using CrvService.Shared.Contracts.Entities.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ServerCommands.Base;
 using CrvService.Shared.Logic;
 
 namespace CrvService.Data.Entities
@@ -18,6 +22,7 @@ namespace CrvService.Data.Entities
         public string VisibleCitiesStr { get; set; }
 
         public WorldEntity World { get; set; }
+
 
         public string Guid { get; set; }
         public string Type { get; set; }
@@ -45,5 +50,13 @@ namespace CrvService.Data.Entities
             get => World;
             set => World = (WorldEntity) value;
         }
+
+        #region Commands
+
+        public virtual ICollection<ServerCommandEntity> CommandsCollection { get; set; } = new List<ServerCommandEntity>();
+        private ICollectionWrapper<IServerCommand> _commands;
+        [NotMapped] public ICollectionWrapper<IServerCommand> Commands => _commands ??= new EntityCollectionWrapper<IServerCommand, ServerCommandEntity>(CommandsCollection);
+
+        #endregion
     }
 }

@@ -7,5 +7,7 @@ namespace CrvService.Shared.Contracts.Entities.Base
         IEnumerable<TClass> Collection { get; }
         void Remove(string guid);
         void Add(TClass entity);
+
+        void LoadCollection(IEnumerable<TClass> collection);
     }
 }

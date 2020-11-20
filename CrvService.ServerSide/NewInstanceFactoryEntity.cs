@@ -2,11 +2,13 @@
 using CrvService.Data.Entities;
 using CrvService.Data.Entities.Buildings;
 using CrvService.Data.Entities.Cargos;
+using CrvService.Data.Entities.Commands.ServerCommands.Base;
 using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Contracts.Entities.Base;
 using CrvService.Shared.Contracts.Entities.Buildings;
 using CrvService.Shared.Contracts.Entities.Cargos;
 using CrvService.Shared.Contracts.Entities.Cargos.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ServerCommands;
 using CrvService.Shared.Logic;
 
 namespace CrvService.ServerSide
@@ -63,6 +65,11 @@ namespace CrvService.ServerSide
             else if (type == H.Get<ISalt>())
             {
                 var cc = new SaltEntity();
+                result = cc as T;
+            }
+            else if (type == H.Get<IEnterCityServerCommand>())
+            {
+                var cc = new EnterCityServerCommandEntity();
                 result = cc as T;
             }
             else

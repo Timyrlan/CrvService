@@ -4,15 +4,15 @@ using System.Linq;
 using CrvService.Shared.Contracts.Dto;
 using CrvService.Shared.Contracts.Dto.Buildings;
 using CrvService.Shared.Contracts.Dto.Cargos;
-using CrvService.Shared.Contracts.Dto.ClientCommands.Base;
+using CrvService.Shared.Contracts.Dto.Commands.ClientCommands.Base;
 using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Contracts.Entities.Buildings.Base;
 using CrvService.Shared.Contracts.Entities.Cargos.Base;
-using CrvService.Shared.Contracts.Entities.ClientCommands;
-using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands.Base;
 using CrvService.Shared.Logic.ClientSide.Buildings;
 using CrvService.Shared.Logic.ClientSide.Cargos;
-using CrvService.Shared.Logic.ClientSide.ClientCommands;
+using CrvService.Shared.Logic.ClientSide.Commands.ClientCommands;
 
 // ReSharper disable UseObjectOrCollectionInitializer
 
@@ -26,6 +26,7 @@ namespace CrvService.Shared.Logic.ClientSide.Server
             result.WorldGuid = c.WorldGuid;
             result.Player = Map(c.Player);
             result.ClientCommands = Map(c.ClientCommands);
+            result.LastServerCommandProcessed = c.LastServerCommandProcessed;
             return result;
         }
 

@@ -5,7 +5,7 @@ namespace CrvService.Shared.Logic.Processors
 {
     public class BraminProcessor : CargoContainerProcessorBase
     {
-        public BraminProcessor(IProcessorsProvider processorsProvider) : base(processorsProvider)
+        public BraminProcessor(IProcessorsProvider processorsProvider, INewInstanceFactory newInstanceFactory) : base(processorsProvider, newInstanceFactory)
         {
         }
 

@@ -1,4 +1,5 @@
 ﻿using CrvService.Shared.Contracts.Entities.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ServerCommands.Base;
 
 namespace CrvService.Shared.Contracts.Entities
 {
@@ -19,5 +20,7 @@ namespace CrvService.Shared.Contracts.Entities
 
 
         IWorld PlayersWorld { get; }
+
+        ICollectionWrapper<IServerCommand> Commands { get; }
     }
 }

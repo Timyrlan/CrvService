@@ -5,7 +5,7 @@ namespace CrvService.Shared.Logic.Processors.Cargos
 {
     public class SaltWaterProcessor : ProcessorBase
     {
-        public SaltWaterProcessor(IProcessorsProvider processorsProvider) : base(processorsProvider)
+        public SaltWaterProcessor(IProcessorsProvider processorsProvider, INewInstanceFactory newInstanceFactory) : base(processorsProvider, newInstanceFactory)
         {
         }
 

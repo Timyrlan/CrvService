@@ -5,7 +5,7 @@ namespace CrvService.Shared.Logic.Processors
 {
     public class WorldProcessor : ProcessorBase
     {
-        public WorldProcessor(IProcessorsProvider processorsProvider) : base(processorsProvider)
+        public WorldProcessor(IProcessorsProvider processorsProvider, INewInstanceFactory newInstanceFactory) : base(processorsProvider, newInstanceFactory)
         {
         }
 

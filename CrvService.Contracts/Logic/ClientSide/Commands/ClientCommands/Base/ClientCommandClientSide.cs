@@ -1,8 +1,8 @@
 ﻿using System;
-using CrvService.Shared.Contracts.Entities.ClientCommands.Base;
+using CrvService.Shared.Contracts.Entities.Commands.ClientCommands.Base;
 using CrvService.Shared.Logic.ClientSide.Base;
 
-namespace CrvService.Shared.Logic.ClientSide.ClientCommands.Base
+namespace CrvService.Shared.Logic.ClientSide.Commands.ClientCommands.Base
 {
     public class ClientCommandClientSideEntity : ClientSideEntityBase, IClientCommand
     {

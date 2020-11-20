@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrvService.Data;
 using CrvService.Data.Entities;
+using CrvService.Data.Entities.Commands.ClientCommands;
+using CrvService.Data.Entities.Commands.ClientCommands.Base;
 using CrvService.Shared.Contracts.Dto.Base;
 using CrvService.Shared.Contracts.Entities;
 using CrvService.Shared.Logic;
@@ -79,6 +81,13 @@ namespace CrvService.ServerSide
                 player.MoveToX = request.Player.MoveToX;
                 player.MoveToY = request.Player.MoveToY;
 
+                var processedCommands = await context.ServerCommands.Where(c => !c.Processed && c.Id <= request.LastServerCommandProcessed).ToArrayAsync();
+                foreach (var processedCommand in processedCommands)
+                {
+                    processedCommand.Processed = true;
+                    processedCommand.ProcessDateTime = DateTime.UtcNow;
+                }
+
                 await context.SaveAsync();
             }
 
@@ -101,6 +110,8 @@ namespace CrvService.ServerSide
                     Player = await context.Players.FirstOrDefaultAsync(c => c.Guid == request.Player.Guid),
                     World = await GetFullWorld(request.WorldGuid, context)
                 };
+
+                result.Player.Commands.LoadCollection(await context.ServerCommands.Where(c => c.PlayerGuid == result.Player.Guid).ToArrayAsync());
 
                 return result;
             }

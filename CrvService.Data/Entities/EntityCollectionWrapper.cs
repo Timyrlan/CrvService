@@ -28,5 +28,11 @@ namespace CrvService.Data.Entities
         {
             PrivateCollection.Add((TImplementation) entity);
         }
+
+        public void LoadCollection(IEnumerable<TInterface> collection)
+        {
+            PrivateCollection.Clear();
+            foreach (var c in collection) PrivateCollection.Add((TImplementation) c);
+        }
     }
 }
